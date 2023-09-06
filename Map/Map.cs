@@ -1,18 +1,23 @@
+using Obstacles;
+
 namespace Map {
     interface MapInterface {
-        byte[8,8] getMap();
-
-        private void createMap();
+        byte[,] getGrid   
     }
 
     class Map : MapInterface {
-        byte[8, 8] map;
-        public void Map() {
-            map = createMap()
+        byte[,] grid;
+        public Map() {
+            grid = new byte[8, 8];
         }
 
-        private byte[8, 8] createMap() {
-            throw new NotImplementedError;
+        public byte[,] getGrid()
+        {
+            throw new NotImplementedException();
+        }
+
+        private byte[,] createGrid() {
+            throw new NotImplementedException();
         }
     }
 }
