@@ -1,25 +1,31 @@
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-
 using Obstacles;
 
-namespace Map {
-    interface MapInterface {
+namespace CAB201_Assignment.Map 
+{
+    interface MapInterface
+    {
         char[,] GetGrid();
-        char[,] getSafeDirections();
+        char[,] GetSafeDirections();
         void PlaceObstacle(Obstacle obstacle, byte x, byte y);
         Obstacle GetObstacle(byte x, byte y);
     }
 
-    class ObstacleMap : MapInterface {
+    class ObstacleMap : MapInterface
+    {
         private Obstacle[,] _grid;
-        public ObstacleMap() {
+        public ObstacleMap()
+        {
             byte width = 8;
             byte height = 8;
             _grid = new Obstacle[width, height];
         }
 
         public char[,] GetGrid()
+        {
+            throw new NotImplementedException();
+        }
+
+        public char[,] GetSafeDirections()
         {
             throw new NotImplementedException();
         }

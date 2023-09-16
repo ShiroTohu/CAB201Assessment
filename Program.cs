@@ -1,8 +1,13 @@
-﻿namespace CAB201_Assignment;
-class Program
+﻿using CAB201_Assignment.Map;
+
+namespace CAB201_Assignment
 {
-    static void Main(string[] args)
+    class Program
     {
-        Console.WriteLine("Hello, World!");
+        static void Main(string[] args)
+        {
+            new MapCreator();
+        }
     }
+
 }
