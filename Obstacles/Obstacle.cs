@@ -1,16 +1,13 @@
 namespace Obstacles {
     abstract class Obstacle {
-        private byte x;
-        private byte y;
-        public byte[2] coordinates {
-            get {
-                return new byte[2] {x, y};
-            }
+        private readonly char _marker;
+        public char Marker
+        {
+            get { return _marker; }
         }
 
         public Obstacle(byte x, byte y) {
-            this.x = x;
-            this.y = y;
+            
         }    
     }
 }
