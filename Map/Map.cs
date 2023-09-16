@@ -10,16 +10,16 @@ namespace Map {
     }
 
     class Map : MapInterface {
-        private byte width = 8;
-        private byte height = 8;
         private char[,] _charGrid;
         private Obstacle[,] _obstacleGrid;
         public Map() {
+            byte width = 8;
+            byte height = 8;
             _charGrid = new char[width, height];
             _obstacleGrid = new Obstacle[width, height];
         }
 
-        public char[,] GetCharacterGrid()
+        public char[,] GetGrid()
         {
             throw new NotImplementedException();
         }
