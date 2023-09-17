@@ -55,7 +55,7 @@ namespace CAB201_Assignment.ObstacleMap
                 encroaching deadline.
                 */
                 case "g":
-                    Guard.Factory();
+                    
                 case "f":
                     Console.WriteLine("f");
                     break;

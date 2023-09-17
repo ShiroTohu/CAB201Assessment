@@ -1,0 +1,4 @@
+namespace Obstacles;
+class Camera {
+    
+}
