@@ -8,7 +8,10 @@ namespace CAB201_Assignment.ObstacleMap
         public MapCreator()
         {
             _obstacleMap = new Map();
-            Menu();
+            bool completed = true;
+            while (completed) {
+                Menu();
+            }
         }
 
         private void Menu()
@@ -46,6 +49,7 @@ namespace CAB201_Assignment.ObstacleMap
 
         private void CodeSelector(string code)
         {
+            ObstacleFactory obstacleFactory = new ObstacleFactory();
             switch (code)
             {
                 /* 
@@ -55,15 +59,20 @@ namespace CAB201_Assignment.ObstacleMap
                 encroaching deadline.
                 */
                 case "g":
-                    
+                    Obstacle guard = obstacleFactory.CreateObstacle("guard");
+                    _obstacleMap.PlaceObstacle(guard);
+                    break;
                 case "f":
-                    Console.WriteLine("f");
+                    Obstacle fence = obstacleFactory.CreateObstacle("fence");
+                    _obstacleMap.PlaceObstacle(fence);
                     break;
                 case "s":
-                    Console.WriteLine("s");
+                    Obstacle sensor = obstacleFactory.CreateObstacle("fence");
+                    _obstacleMap.PlaceObstacle(sensor);
                     break;
                 case "c":
-                    Console.WriteLine("c");
+                    Obstacle camera = obstacleFactory.CreateObstacle("camera");
+                    _obstacleMap.PlaceObstacle(camera);
                     break;
                 case "d":
                     Console.WriteLine("d");
@@ -75,7 +84,6 @@ namespace CAB201_Assignment.ObstacleMap
                     Console.WriteLine("p");
                     break;
                 case "x":
-                    Console.WriteLine("x");
                     break;
             }
         }

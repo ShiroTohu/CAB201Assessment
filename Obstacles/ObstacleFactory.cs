@@ -1,12 +1,12 @@
 namespace Obstacles;
 interface ObstacleFactoryInterface
 {
-    Obstacle CreateObstacle(string type, byte x, byte y);
+    Obstacle CreateObstacle(string type);
 }
 
 class ObstacleFactory : ObstacleFactoryInterface
 {
-    public Obstacle CreateObstacle(string type, byte x, byte y) {
+    public Obstacle CreateObstacle(string type) {
         switch(type) {
             case "guard":
                 return CreateGuard();

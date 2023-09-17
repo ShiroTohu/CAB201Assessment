@@ -12,8 +12,11 @@ namespace CAB201_Assignment.ObstacleMap
         /// </summary>
         /// <returns></returns>
         char[,] GetGrid();
-        char[,] GetSafeDirections();
-        void PlaceObstacle(Obstacle obstacle, byte x, byte y);
+        string GetSafeDirections();
+
+        string DisplayObstacleMap();
+        string FindSafePath();
+        void PlaceObstacle(Obstacle obstacle);
         Obstacle GetObstacle(byte x, byte y);
     }
 
@@ -32,14 +35,24 @@ namespace CAB201_Assignment.ObstacleMap
             throw new NotImplementedException();
         }
 
-        public char[,] GetSafeDirections()
+        public string GetSafeDirections()
         {
             throw new NotImplementedException();
         }
 
-        public void PlaceObstacle(Obstacle obstacle, byte x, byte y)
+        public string DisplayObstacleMap()
         {
-            
+            throw new NotImplementedException();
+        }
+
+        public string FindSafePath()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PlaceObstacle(Obstacle obstacle)
+        {
+            throw new NotImplementedException();
         }
 
         public Obstacle GetObstacle(byte x, byte y)
