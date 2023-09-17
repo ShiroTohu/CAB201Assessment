@@ -1,13 +1,25 @@
 namespace Obstacles {
-    abstract class Obstacle {
-        private readonly char _marker;
-        public char Marker
-        {
-            get { return _marker; }
+    interface ObstacleInterface {
+        byte[] GetPosition();
+        char GetMarker();
+    }
+
+    abstract class Obstacle : ObstacleInterface {
+        private char _marker;
+        private byte _x;
+        private byte _y;
+
+        protected Obstacle(byte x, byte y) {
+            _x = x;
+            _y = y;
         }
 
-        public Obstacle(byte x, byte y) {
-            
-        }    
+        public byte[] GetPosition() {
+            return new byte[2] {_x, _y};
+        }
+
+        public char GetMarker() {
+            return _marker;
+        }
     }
 }
