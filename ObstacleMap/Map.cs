@@ -12,7 +12,7 @@ namespace CAB201_Assignment.ObstacleMap
         /// </summary>
         /// <returns></returns>
         char[,] GetGrid();
-        string GetSafeDirections();
+        string ShowSafeDirections();
 
         string DisplayObstacleMap();
         string FindSafePath();
@@ -35,7 +35,7 @@ namespace CAB201_Assignment.ObstacleMap
             throw new NotImplementedException();
         }
 
-        public string GetSafeDirections()
+        public string ShowSafeDirections()
         {
             throw new NotImplementedException();
         }

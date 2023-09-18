@@ -8,17 +8,21 @@ namespace CAB201_Assignment.ObstacleMap
         public MapCreator()
         {
             _obstacleMap = new Map();
-            bool completed = true;
-            while (completed) {
-                Menu();
-            }
+            Menu();
         }
 
         private void Menu()
         {
-            DisplayPrompt();
-            string input = enterCode();
-            CodeSelector(input);
+            bool completed = false;
+            while (!completed) {
+                DisplayPrompt();
+                string input = enterCode();
+                CodeSelector(input);
+                if (input == "x") {
+                    completed = true;
+                }
+            }
+            
         }
 
         private void DisplayPrompt()
@@ -75,16 +79,16 @@ namespace CAB201_Assignment.ObstacleMap
                     _obstacleMap.PlaceObstacle(camera);
                     break;
                 case "d":
-                    Console.WriteLine("d");
+                    _obstacleMap.ShowSafeDirections();
                     break;
                 case "m":
-                    Console.WriteLine("m");
+                    _obstacleMap.DisplayObstacleMap();
                     break;
                 case "p":
-                    Console.WriteLine("p");
+                    _obstacleMap.FindSafePath();
                     break;
-                case "x":
-                    break;
+                default:
+                    throw new Exception();
             }
         }
     }
