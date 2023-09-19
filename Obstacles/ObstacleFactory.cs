@@ -25,16 +25,9 @@ class ObstacleFactory : ObstacleFactoryInterface
     }
 
     private Guard CreateGuard() {
-        Console.WriteLine($"Enter the Guard's location (X, Y):");
-        string? input = Console.ReadLine();
-        if (string.IsNullOrEmpty(input)) {
-            throw new Exception();
-        } 
-        string[] seperate = input.Split(",");
-        int x = int.Parse(seperate[0]);
-        int y = int.Parse(seperate[1]);
+        
 
-        return new Guard(x, y);
+        return new Guard();
     }
 
     private Fence CreateFence() {
@@ -45,9 +38,7 @@ class ObstacleFactory : ObstacleFactoryInterface
         if (string.IsNullOrEmpty(input)) {
             throw new Exception();
         } 
-        string[] startingcoordinates = input.Split(",");
-        int startX = int.Parse(seperate[0]);
-        int startY = int.Parse(seperate[1]);
+        int[] startingcoordinates =
 
         Console.WriteLine("Enter the location where the fence ends (X,Y):");
         input = Console.ReadLine();
@@ -59,7 +50,7 @@ class ObstacleFactory : ObstacleFactoryInterface
         byte endX = byte.Parse(seperate[0]);
         byte endY = byte.Parse(seperate[1]);
 
-        return new Fence(startX, startY, startX, startY);
+        return new Fence();
     }
 
     private Camera CreateCamera() {

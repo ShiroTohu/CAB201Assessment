@@ -1,34 +1,49 @@
+using System.Runtime.CompilerServices;
+
 namespace Obstacles {
     interface ObstacleInterface {
-        int[] GetPosition();
-        char GetMarker();
+        int[] Coordinates { get; }
+        int X { get; }
+        int Y { get; }
+        char Marker { get; }
     }
 
     abstract class Obstacle : ObstacleInterface {
         private char _marker;
-        private int _x;
-        private int _y;
+        private int[] _coordinates;
+        public int[] Coordinates
+        {
+            get => _coordinates;
+        }
+        public int X
+        {
+            get
+            {
+                byte x = 0;
+                return _coordinates[x];
+            }
+            
+        }
+        public int Y
+        {
+            get 
+            { 
+                byte y = 1;
+                return _coordinates[y];
+            }
+        }
 
-        protected Obstacle(int x, int y) {
-            _x = x;
-            _y = y;
+        public char Marker
+        {
+            get
+            {
+                return _marker;
+            }
         }
 
         protected Obstacle()
         {
-            byte x = 0;
-            byte y = 1;
-            int[] coordinates = PromptCoordinates("asdf");
-            _x = coordinates[x];
-            _y = coordinates[y];
-        }
-
-        public int[] GetPosition() {
-            return new int[2] {_x, _y};
-        }
-
-        public char GetMarker() {
-            return _marker;
+            _coordinates = PromptCoordinates("asdf");
         }
 
         protected static int[] PromptCoordinates(string prompt)

@@ -65,7 +65,7 @@ namespace CAB201_Assignment.ObstacleMap
             Console.WriteLine("Placed Obstacle");
         }
 
-        public Obstacle GetObstacle(byte x, byte y)
+        public Obstacle GetObstacle(int x,int y)
         {
             throw new NotImplementedException();
         }
