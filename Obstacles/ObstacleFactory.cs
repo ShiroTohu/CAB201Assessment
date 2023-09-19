@@ -23,15 +23,15 @@ class ObstacleFactory : ObstacleFactoryInterface
 
     private Guard CreateGuard() {
         Console.WriteLine($"Enter the Guard's location (X, Y):");
-            string? input = Console.ReadLine();
-            if (string.IsNullOrEmpty(input)) {
-                throw new Exception();
-            } 
-            string[] seperate = input.Split();
-            byte x = byte.Parse(seperate[0]);
-            byte y = byte.Parse(seperate[1]);
+        string? input = Console.ReadLine();
+        if (string.IsNullOrEmpty(input)) {
+            throw new Exception();
+        } 
+        string[] seperate = input.Split();
+        byte x = byte.Parse(seperate[0]);
+        byte y = byte.Parse(seperate[1]);
 
-            return new Guard(x, y);
+        return new Guard(x, y);
     }
 
     private Fence CreateFence() {

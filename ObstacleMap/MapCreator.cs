@@ -40,6 +40,7 @@ namespace CAB201_Assignment.ObstacleMap
 
         private string enterCode()
         {
+            Console.WriteLine("Enter code:");
             string? input = Console.ReadLine();
             if (string.IsNullOrEmpty(input))
             {
