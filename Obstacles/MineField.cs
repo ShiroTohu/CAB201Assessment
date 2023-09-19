@@ -2,6 +2,6 @@
 {
     class MineField : Obstacle
     {
-        public MineField(byte x, byte y) : base(x, y) { }
+        public MineField(int x, int y) : base(x, y) { }
     }
 }
