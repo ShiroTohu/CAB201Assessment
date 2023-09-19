@@ -89,7 +89,8 @@ namespace CAB201_Assignment.ObstacleMap
                     _obstacleMap.FindSafePath();
                     break;
                 default:
-                    throw new Exception();
+                    Console.WriteLine("Invalid Option");
+                    break;
             }
         }
     }

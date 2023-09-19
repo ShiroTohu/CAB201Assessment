@@ -1,4 +1,9 @@
 namespace Obstacles;
 class Fence : Obstacle {
-    public Fence(byte x, byte y) : base(x, y) {}
+    private byte _endX;
+    private byte _endY;
+    public Fence(byte startX, byte startY, byte endX, byte endY) : base(startX, startY) {
+        _endX = endX;
+        _endY = endY;
+    }
 }

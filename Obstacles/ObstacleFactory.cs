@@ -1,3 +1,6 @@
+using System.Diagnostics.Metrics;
+using System;
+
 namespace Obstacles;
 interface ObstacleFactoryInterface
 {
@@ -27,7 +30,7 @@ class ObstacleFactory : ObstacleFactoryInterface
         if (string.IsNullOrEmpty(input)) {
             throw new Exception();
         } 
-        string[] seperate = input.Split();
+        string[] seperate = input.Split(",");
         byte x = byte.Parse(seperate[0]);
         byte y = byte.Parse(seperate[1]);
 
@@ -35,16 +38,26 @@ class ObstacleFactory : ObstacleFactoryInterface
     }
 
     private Fence CreateFence() {
-        Console.WriteLine($"Enter the Fence's location (X, Y):");
+        Console.WriteLine("Enter the location where the fence starts(X, Y):");
         string? input = Console.ReadLine();
         if (string.IsNullOrEmpty(input)) {
             throw new Exception();
         } 
-        string[] seperate = input.Split();
-        byte x = byte.Parse(seperate[0]);
-        byte y = byte.Parse(seperate[1]);
+        string[] seperate = input.Split(",");
+        byte startX = byte.Parse(seperate[0]);
+        byte startY = byte.Parse(seperate[1]);
 
-        return new Fence(x, y);
+        Console.WriteLine("Enter the location where the fence ends (X,Y):");
+        input = Console.ReadLine();
+        if (string.IsNullOrEmpty(input))
+        {
+            throw new Exception();
+        }
+        seperate = input.Split(",");
+        byte endX = byte.Parse(seperate[0]);
+        byte endY = byte.Parse(seperate[1]);
+
+        return new Fence(startX, startY, startX, startY);
     }
 
     private Camera CreateCamera() {
@@ -53,7 +66,7 @@ class ObstacleFactory : ObstacleFactoryInterface
         if (string.IsNullOrEmpty(input)) {
             throw new Exception();
         } 
-        string[] seperate = input.Split();
+        string[] seperate = input.Split(",");
         byte x = byte.Parse(seperate[0]);
         byte y = byte.Parse(seperate[1]);
 
@@ -66,7 +79,7 @@ class ObstacleFactory : ObstacleFactoryInterface
         if (string.IsNullOrEmpty(input)) {
             throw new Exception();
         } 
-        string[] seperate = input.Split();
+        string[] seperate = input.Split(",");
         byte x = byte.Parse(seperate[0]);
         byte y = byte.Parse(seperate[1]);
 
