@@ -31,21 +31,23 @@ class ObstacleFactory : ObstacleFactoryInterface
             throw new Exception();
         } 
         string[] seperate = input.Split(",");
-        byte x = byte.Parse(seperate[0]);
-        byte y = byte.Parse(seperate[1]);
+        int x = int.Parse(seperate[0]);
+        int y = int.Parse(seperate[1]);
 
         return new Guard(x, y);
     }
 
     private Fence CreateFence() {
+        byte x = 0;
+        byte y = 0;
         Console.WriteLine("Enter the location where the fence starts(X, Y):");
         string? input = Console.ReadLine();
         if (string.IsNullOrEmpty(input)) {
             throw new Exception();
         } 
-        string[] seperate = input.Split(",");
-        byte startX = byte.Parse(seperate[0]);
-        byte startY = byte.Parse(seperate[1]);
+        string[] startingcoordinates = input.Split(",");
+        int startX = int.Parse(seperate[0]);
+        int startY = int.Parse(seperate[1]);
 
         Console.WriteLine("Enter the location where the fence ends (X,Y):");
         input = Console.ReadLine();

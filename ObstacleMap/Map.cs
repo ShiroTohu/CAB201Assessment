@@ -17,7 +17,7 @@ namespace CAB201_Assignment.ObstacleMap
         string DisplayObstacleMap();
         string FindSafePath();
         void PlaceObstacle(Obstacle obstacle);
-        Obstacle GetObstacle(byte x, byte y);
+        Obstacle GetObstacle(int x, int y);
     }
 
     class Map : MapInterface
@@ -25,8 +25,8 @@ namespace CAB201_Assignment.ObstacleMap
         private Obstacle[,] _grid;
         public Map()
         {
-            byte width = 8;
-            byte height = 8;
+            int width = 8;
+            int height = 8;
             _grid = new Obstacle[width, height];
         }
 
@@ -38,14 +38,16 @@ namespace CAB201_Assignment.ObstacleMap
         public string ShowSafeDirections()
         {
             Console.WriteLine("Enter the location where the fence ends (X,Y):");
-            input = Console.ReadLine();
+            string? input = Console.ReadLine();
             if (string.IsNullOrEmpty(input))
             {
                 throw new Exception();
             }
-            seperate = input.Split(",");
+            string[] seperate = input.Split(",");
             byte endX = byte.Parse(seperate[0]);
             byte endY = byte.Parse(seperate[1]);
+
+            return "SEWN";
         }
 
         public string DisplayObstacleMap()

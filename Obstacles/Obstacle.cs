@@ -1,33 +1,37 @@
 namespace Obstacles {
     interface ObstacleInterface {
-        byte[] GetPosition();
+        int[] GetPosition();
         char GetMarker();
     }
 
     abstract class Obstacle : ObstacleInterface {
         private char _marker;
-        private byte _x;
-        private byte _y;
+        private int _x;
+        private int _y;
 
-        protected Obstacle(byte x, byte y) {
+        protected Obstacle(int x, int y) {
             _x = x;
             _y = y;
         }
 
         protected Obstacle()
         {
-
+            byte x = 0;
+            byte y = 1;
+            int[] coordinates = PromptCoordinates("asdf");
+            _x = coordinates[x];
+            _y = coordinates[y];
         }
 
-        public byte[] GetPosition() {
-            return new byte[2] {_x, _y};
+        public int[] GetPosition() {
+            return new int[2] {_x, _y};
         }
 
         public char GetMarker() {
             return _marker;
         }
 
-        protected static byte[] PromptCoordinates(string prompt)
+        protected static int[] PromptCoordinates(string prompt)
         {
             Console.WriteLine(prompt);
             string? input = Console.ReadLine();
@@ -36,10 +40,10 @@ namespace Obstacles {
                 throw new Exception();
             }
             string[] seperate = input.Split(",");
-            byte x = byte.Parse(seperate[0]);
-            byte y = byte.Parse(seperate[1]);
+            int x = byte.Parse(seperate[0]);
+            int y = byte.Parse(seperate[1]);
 
-            return new byte[] { x, y };
+            return new int[] { x, y };
         }
     }
 }
