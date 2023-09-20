@@ -1,5 +1,6 @@
 using System.Diagnostics.Metrics;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Obstacles;
 interface ObstacleFactoryInterface
@@ -9,74 +10,48 @@ interface ObstacleFactoryInterface
 
 class ObstacleFactory : ObstacleFactoryInterface
 {
-    public Obstacle CreateObstacle(string type) {
-        switch(type) {
-            case "guard":
+    public Obstacle CreateObstacle(string type) 
+    {
+        switch(type) 
+        {
+            case "g":
                 return CreateGuard();
-            case "fence":
+            case "f":
                 return CreateFence();
-            case "camera":
+            case "c":
                 return CreateCamera();
-            case "sensor":
+            case "s":
                 return CreateSensor();
+            case "m":
+                return CreateMineField();
             default:
                 throw new Exception();
         }
     }
 
-    private Guard CreateGuard() {
-        
-
+    private Guard CreateGuard() 
+    {
         return new Guard();
     }
 
-    private Fence CreateFence() {
-        byte x = 0;
-        byte y = 0;
-        Console.WriteLine("Enter the location where the fence starts(X, Y):");
-        string? input = Console.ReadLine();
-        if (string.IsNullOrEmpty(input)) {
-            throw new Exception();
-        } 
-        int[] startingcoordinates =
-
-        Console.WriteLine("Enter the location where the fence ends (X,Y):");
-        input = Console.ReadLine();
-        if (string.IsNullOrEmpty(input))
-        {
-            throw new Exception();
-        }
-        seperate = input.Split(",");
-        byte endX = byte.Parse(seperate[0]);
-        byte endY = byte.Parse(seperate[1]);
-
+    private Fence CreateFence() 
+    {
         return new Fence();
     }
 
-    private Camera CreateCamera() {
-        Console.WriteLine($"Enter the Fence's location (X, Y):");
-        string? input = Console.ReadLine();
-        if (string.IsNullOrEmpty(input)) {
-            throw new Exception();
-        } 
-        string[] seperate = input.Split(",");
-        byte x = byte.Parse(seperate[0]);
-        byte y = byte.Parse(seperate[1]);
-
-        return new Camera(x, y);
+    private Camera CreateCamera() 
+    {
+        return new Camera();
     }
 
-    private Sensor CreateSensor() {
-        Console.WriteLine($"Enter the Fence's location (X, Y):");
-        string? input = Console.ReadLine();
-        if (string.IsNullOrEmpty(input)) {
-            throw new Exception();
-        } 
-        string[] seperate = input.Split(",");
-        byte x = byte.Parse(seperate[0]);
-        byte y = byte.Parse(seperate[1]);
+    private Sensor CreateSensor() 
+    {
+        return new Sensor();
+    }
 
-        return new Sensor(x, y);
+    private MineField CreateMineField() 
+    {
+        return new MineField();
     }
 }
 

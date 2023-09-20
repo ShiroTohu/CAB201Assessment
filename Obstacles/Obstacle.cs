@@ -6,11 +6,13 @@ namespace Obstacles {
         int X { get; }
         int Y { get; }
         char Marker { get; }
+        int[,] GetVision();
     }
 
-    abstract class Obstacle : ObstacleInterface {
-        private char _marker;
-        private int[] _coordinates;
+    abstract class Obstacle : ObstacleInterface 
+    {
+        protected char _marker;
+        protected int[] _coordinates; // origin of the Obsticle
         public int[] Coordinates
         {
             get => _coordinates;
@@ -41,10 +43,11 @@ namespace Obstacles {
             }
         }
 
-        protected Obstacle()
-        {
-            _coordinates = PromptCoordinates("asdf");
+        protected Obstacle() {
+            InitializeObstacle();
         }
+
+        protected abstract void InitializeObstacle();
 
         protected static int[] PromptCoordinates(string prompt)
         {
@@ -60,5 +63,7 @@ namespace Obstacles {
 
             return new int[] { x, y };
         }
+
+        public abstract int[,] GetVision();
     }
 }

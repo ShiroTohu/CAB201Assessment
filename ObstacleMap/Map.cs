@@ -5,34 +5,27 @@ namespace CAB201_Assignment.ObstacleMap
     /// <summary>
     /// The Interface to be implemented by the ObstacleMap
     /// </summary>
-    interface MapInterface
+    interface IMap
     {
-        /// <summary>
-        /// returns the grid as a two dimensional array
-        /// </summary>
-        /// <returns></returns>
-        char[,] GetGrid();
         string ShowSafeDirections();
 
+        /// <summary>
+        /// Generates the string representation of the Obstacle Map using
+        /// the Obstacles found in 
+        /// </summary>
+        /// <returns></returns>
         string DisplayObstacleMap();
         string FindSafePath();
         void PlaceObstacle(Obstacle obstacle);
         Obstacle GetObstacle(int x, int y);
     }
 
-    class Map : MapInterface
+    class Map : IMap
     {
-        private Obstacle[,] _grid;
+        private List<Obstacle> _obstacles;
         public Map()
         {
-            int width = 8;
-            int height = 8;
-            _grid = new Obstacle[width, height];
-        }
-
-        public char[,] GetGrid()
-        {
-            throw new NotImplementedException();
+            _obstacles = new List<Obstacle>();
         }
 
         public string ShowSafeDirections()
@@ -43,9 +36,6 @@ namespace CAB201_Assignment.ObstacleMap
             {
                 throw new Exception();
             }
-            string[] seperate = input.Split(",");
-            byte endX = byte.Parse(seperate[0]);
-            byte endY = byte.Parse(seperate[1]);
 
             return "SEWN";
         }
@@ -62,7 +52,7 @@ namespace CAB201_Assignment.ObstacleMap
 
         public void PlaceObstacle(Obstacle obstacle)
         {
-            Console.WriteLine("Placed Obstacle");
+            _obstacles.Add(obstacle);
         }
 
         public Obstacle GetObstacle(int x,int y)

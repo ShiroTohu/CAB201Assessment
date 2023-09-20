@@ -4,10 +4,10 @@ namespace CAB201_Assignment.ObstacleMap
 {
     class MapCreator
     {
-        private Map _obstacleMap;
+        private Map _map;
         public MapCreator()
         {
-            _obstacleMap = new Map();
+            _map = new Map();
             Menu();
         }
 
@@ -55,6 +55,16 @@ namespace CAB201_Assignment.ObstacleMap
         private void CodeSelector(string code)
         {
             ObstacleFactory obstacleFactory = new ObstacleFactory();
+            try
+            {
+                Obstacle obstacle = obstacleFactory.CreateObstacle(code);
+                _map.PlaceObstacle(obstacle)
+            }
+            catch (Exception e)
+            {
+                throw new Exception();
+            }
+
             switch (code)
             {
                 /* 
@@ -63,22 +73,6 @@ namespace CAB201_Assignment.ObstacleMap
                 that you will try and produce as a result of the ever
                 encroaching deadline.
                 */
-                case "g":
-                    Obstacle guard = obstacleFactory.CreateObstacle("guard");
-                    _obstacleMap.PlaceObstacle(guard);
-                    break;
-                case "f":
-                    Obstacle fence = obstacleFactory.CreateObstacle("fence");
-                    _obstacleMap.PlaceObstacle(fence);
-                    break;
-                case "s":
-                    Obstacle sensor = obstacleFactory.CreateObstacle("fence");
-                    _obstacleMap.PlaceObstacle(sensor);
-                    break;
-                case "c":
-                    Obstacle camera = obstacleFactory.CreateObstacle("camera");
-                    _obstacleMap.PlaceObstacle(camera);
-                    break;
                 case "d":
                     _obstacleMap.ShowSafeDirections();
                     break;

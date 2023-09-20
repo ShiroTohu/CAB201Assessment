@@ -1,8 +1,10 @@
 namespace Obstacles;
 class Fence : Obstacle {
-    private int _endX;
-    private int _endY;
-    public Fence() : base() {
-        
+    private int[] _endCoordinates;
+    private int _length;
+
+    protected override void InitalizeObject()
+    {
+        PromptCoordinates("Balls");
     }
 }
