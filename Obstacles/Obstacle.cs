@@ -6,7 +6,7 @@ namespace Obstacles {
         int X { get; }
         int Y { get; }
         char Marker { get; }
-        int[,] GetVision();
+        List<int[]> GetVision(int[] topLeft, int[] bottomRight);
     }
 
     abstract class Obstacle : ObstacleInterface 
@@ -43,6 +43,8 @@ namespace Obstacles {
             }
         }
 
+        // must contain a non-null value when exiting the constructor, though this is supposed to be impleneted in the child classes
+        // though raises a good point of how I can clean up the code here.
         protected Obstacle() {
             InitializeObstacle();
         }
@@ -64,6 +66,6 @@ namespace Obstacles {
             return new int[] { x, y };
         }
 
-        public abstract int[,] GetVision();
+        public abstract List<int[]> GetVision(int[] topLeft, int[] bottomRight);
     }
 }

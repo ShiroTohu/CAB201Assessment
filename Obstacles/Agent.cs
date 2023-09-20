@@ -8,5 +8,6 @@ namespace CAB201_Assignment.Obstacles
 {
     public class Agent
     {
+
     }
 }

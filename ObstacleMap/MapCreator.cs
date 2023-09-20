@@ -58,11 +58,11 @@ namespace CAB201_Assignment.ObstacleMap
             try
             {
                 Obstacle obstacle = obstacleFactory.CreateObstacle(code);
-                _map.PlaceObstacle(obstacle)
+                _map.PlaceObstacle(obstacle);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw new Exception();
+                throw;
             }
 
             switch (code)
@@ -74,13 +74,13 @@ namespace CAB201_Assignment.ObstacleMap
                 encroaching deadline.
                 */
                 case "d":
-                    _obstacleMap.ShowSafeDirections();
+                    _map.ShowSafeDirections();
                     break;
                 case "m":
-                    _obstacleMap.DisplayObstacleMap();
+                    _map.DisplayObstacleMap();
                     break;
                 case "p":
-                    _obstacleMap.FindSafePath();
+                    _map.FindSafePath();
                     break;
                 default:
                     Console.WriteLine("Invalid Option");
