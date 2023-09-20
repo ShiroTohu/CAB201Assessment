@@ -7,7 +7,7 @@ namespace Obstacles {
         int X { get; }
         int Y { get; }
         char Marker { get; }
-        List<int[]> GetVision(int[] topLeft, int[] bottomRight);
+        List<int[]> GetVision(CharMap charMap);
     }
 
     abstract class Obstacle : IObstacle
@@ -52,6 +52,6 @@ namespace Obstacles {
 
         protected abstract void InitializeObstacle();
 
-        public abstract List<int[]> GetVision(Map map);
+        public abstract List<int[]> GetVision(CharMap charMap);
     }
 }

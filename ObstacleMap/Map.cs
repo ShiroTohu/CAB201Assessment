@@ -1,3 +1,4 @@
+using CAB201_Assignment.Utils;
 using Obstacles;
 
 namespace CAB201_Assignment.ObstacleMap 
@@ -42,7 +43,7 @@ namespace CAB201_Assignment.ObstacleMap
 
         public string DisplayObstacleMap()
         {
-            throw new NotImplementedException();
+            CharMap charMap = CreateCharMap();
         }
 
         public string FindSafePath()
@@ -60,14 +61,16 @@ namespace CAB201_Assignment.ObstacleMap
             throw new NotImplementedException();
         }
 
-        private void RenderVision(int[] topLeftCoordinates, int[] bottomRightCoordinates) // rename later
+        private void RenderVision(CharMap charMap) // rename later
         {
-            char[,] charmap = new char[,]
-            foreach (var obstacle in _obstacles)
-            {
-                List<int[]> obstacleVision = obstacle.GetVision(topLeftCoordinates, bottomRightCoordinates);
+            throw new NotImplementedException();
+        }
 
-            }
+        private CharMap CreateCharMap()
+        {
+            int[] topLeftCell = Util.PromptCoordinates("Enter the location of the top-left cell of the map (X,Y):");
+            int[] bottomRightCell = Util.PromptCoordinates("Enter the location of the top-left cell of the map (X,Y):");
+            return new CharMap(topLeftCell, bottomRightCell);
         }
     }
 }

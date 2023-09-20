@@ -9,7 +9,7 @@ class Guard : Obstacle
         _coordinates = Util.PromptCoordinates("Enter the guard's location (X,Y):");
     }
 
-    public override List<int[]> GetVision(Map map)
+    public override List<int[]> GetVision(CharMap charMap)
     {
         // Originally it was int[,] but in reality the size of the vision would be unknown.
         // Especially for more complex objects.
