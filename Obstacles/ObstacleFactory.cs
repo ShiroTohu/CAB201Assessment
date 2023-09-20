@@ -3,12 +3,12 @@ using System;
 using System.Runtime.CompilerServices;
 
 namespace Obstacles;
-interface ObstacleFactoryInterface
+interface IObstacleFactory
 {
     Obstacle CreateObstacle(string type);
 }
 
-class ObstacleFactory : ObstacleFactoryInterface
+class ObstacleFactory : IObstacleFactory
 {
     public Obstacle CreateObstacle(string type) 
     {

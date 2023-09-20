@@ -59,5 +59,15 @@ namespace CAB201_Assignment.ObstacleMap
         {
             throw new NotImplementedException();
         }
+
+        private void RenderVision(int[] topLeftCoordinates, int[] bottomRightCoordinates) // rename later
+        {
+            char[,] charmap = new char[,]
+            foreach (var obstacle in _obstacles)
+            {
+                List<int[]> obstacleVision = obstacle.GetVision(topLeftCoordinates, bottomRightCoordinates);
+
+            }
+        }
     }
 }

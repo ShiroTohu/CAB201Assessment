@@ -7,7 +7,7 @@
             PromptCoordinates("Balls");
         }
 
-        public override List<int[]> GetVision(int[] topLeft, int[] bottomRight)
+        public override List<int[]> GetVision(int[] topLeftCoordinates, int[] bottomRightCoordinates)
         {
             // Originally it was int[,] but in reality the size of the vision would be unknown.
             // Especially for more complex objects.

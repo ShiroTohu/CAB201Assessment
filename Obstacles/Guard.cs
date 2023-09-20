@@ -1,12 +1,15 @@
+using CAB201_Assignment.ObstacleMap;
+using CAB201_Assignment.Utils;
+
 namespace Obstacles;
 class Guard : Obstacle 
 {
     protected override void InitializeObstacle()
     {
-        _coordinates = PromptCoordinates("Enter the guard's location (X,Y):");
+        _coordinates = Util.PromptCoordinates("Enter the guard's location (X,Y):");
     }
 
-    public override List<int[]> GetVision(int[] topLeft, int[] bottomRight)
+    public override List<int[]> GetVision(Map map)
     {
         // Originally it was int[,] but in reality the size of the vision would be unknown.
         // Especially for more complex objects.

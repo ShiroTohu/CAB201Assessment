@@ -1,7 +1,8 @@
+using CAB201_Assignment.ObstacleMap;
 using System.Runtime.CompilerServices;
 
 namespace Obstacles {
-    interface ObstacleInterface {
+    interface IObstacle {
         int[] Coordinates { get; }
         int X { get; }
         int Y { get; }
@@ -9,7 +10,7 @@ namespace Obstacles {
         List<int[]> GetVision(int[] topLeft, int[] bottomRight);
     }
 
-    abstract class Obstacle : ObstacleInterface 
+    abstract class Obstacle : IObstacle
     {
         protected char _marker;
         protected int[] _coordinates; // origin of the Obsticle
@@ -51,21 +52,6 @@ namespace Obstacles {
 
         protected abstract void InitializeObstacle();
 
-        protected static int[] PromptCoordinates(string prompt)
-        {
-            Console.WriteLine(prompt);
-            string? input = Console.ReadLine();
-            if (string.IsNullOrEmpty(input))
-            {
-                throw new Exception();
-            }
-            string[] seperate = input.Split(",");
-            int x = byte.Parse(seperate[0]);
-            int y = byte.Parse(seperate[1]);
-
-            return new int[] { x, y };
-        }
-
-        public abstract List<int[]> GetVision(int[] topLeft, int[] bottomRight);
+        public abstract List<int[]> GetVision(Map map);
     }
 }
