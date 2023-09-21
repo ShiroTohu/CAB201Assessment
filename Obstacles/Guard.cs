@@ -13,7 +13,11 @@ class Guard : Obstacle
     {
         // Originally it was int[,] but in reality the size of the vision would be unknown.
         // Especially for more complex objects.
-        List<int[]> vision = new List<int[]>() { _coordinates };
+        List<int[]> vision = new List<int[]>() {};
+        if (charMap.CoordinateInMap(_coordinates))
+        {
+            vision.Add(_coordinates);
+        }
         return vision;
     }
 }

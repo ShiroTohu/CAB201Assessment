@@ -13,7 +13,7 @@ namespace CAB201_Assignment.ObstacleMap
     {
         int[] TopLeftCell { get; }
         int[] BottomRightCell { get; }
-        void Display();
+        void DisplayMap();
         bool CoordinateInMap(int[] coordinate);
     }
 
@@ -22,6 +22,7 @@ namespace CAB201_Assignment.ObstacleMap
         private char[,] _charMap;
         private int[] _topLeftCell;
         private int[] _bottomRightCell;
+        private List<Obstacle> _obstacles;
 
         public int[] TopLeftCell
         {
@@ -39,19 +40,33 @@ namespace CAB201_Assignment.ObstacleMap
             }
         }
 
-        public CharMap(int[] topLeftCell, int[] topRightCell, List<Obstacle> obstacles) 
+        public CharMap(int[] topLeftCell, int[] bottomRightCell, List<Obstacle> obstacles) 
         {
-            
+            _topLeftCell = topLeftCell;
+            _bottomRightCell = bottomRightCell;
+            _obstacles = obstacles;
+            CreateCharMap();
         }
 
-        public void Display() 
+        public void DisplayMap() 
         {
             throw new NotImplementedException();
         }
 
-        private void InitalizeMapDimensions(int[] topLeftCell, int[] topRightCell)
+        private void CreateCharMap()
         {
+            InitalizeMapDimensions();
+            foreach (Obstacle obstacle in _obstacles)
+            {
+                obstacle.GetVision(this);
+            }
+        }
 
+        private void InitalizeMapDimensions()
+        {
+            int width = _bottomRightCell[0] - _topLeftCell[0];
+            int height = _bottomRightCell[1] - _topLeftCell[1];
+            _charMap = new char[width, height];
         }
 
         public bool CoordinateInMap(int[] coordinate)

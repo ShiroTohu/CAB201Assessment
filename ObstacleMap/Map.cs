@@ -1,5 +1,6 @@
 using CAB201_Assignment.Utils;
 using Obstacles;
+using System.Diagnostics.Metrics;
 
 namespace CAB201_Assignment.ObstacleMap 
 {
@@ -15,7 +16,7 @@ namespace CAB201_Assignment.ObstacleMap
         /// the Obstacles found in 
         /// </summary>
         /// <returns></returns>
-        string DisplayObstacleMap();
+        void DisplayObstacleMap();
         string FindSafePath();
         void PlaceObstacle(Obstacle obstacle);
         Obstacle GetObstacle(int x, int y);
@@ -31,19 +32,15 @@ namespace CAB201_Assignment.ObstacleMap
 
         public string ShowSafeDirections()
         {
-            Console.WriteLine("Enter the location where the fence ends (X,Y):");
-            string? input = Console.ReadLine();
-            if (string.IsNullOrEmpty(input))
-            {
-                throw new Exception();
-            }
+            Util.PromptCoordinates("Enter your current location(X, Y)");
 
-            return "SEWN";
+            return "Example output: SEWN";
         }
 
-        public string DisplayObstacleMap()
+        public void DisplayObstacleMap()
         {
             CharMap charMap = CreateCharMap();
+            charMap.DisplayMap();
         }
 
         public string FindSafePath()
@@ -70,7 +67,7 @@ namespace CAB201_Assignment.ObstacleMap
         {
             int[] topLeftCell = Util.PromptCoordinates("Enter the location of the top-left cell of the map (X,Y):");
             int[] bottomRightCell = Util.PromptCoordinates("Enter the location of the top-left cell of the map (X,Y):");
-            return new CharMap(topLeftCell, bottomRightCell);
+            return new CharMap(topLeftCell, bottomRightCell, _obstacles);
         }
     }
 }

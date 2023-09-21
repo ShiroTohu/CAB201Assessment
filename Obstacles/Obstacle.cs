@@ -12,6 +12,7 @@ namespace Obstacles {
 
     abstract class Obstacle : IObstacle
     {
+        protected List<int[]> _vision;
         protected char _marker;
         protected int[] _coordinates; // origin of the Obsticle
         public int[] Coordinates
