@@ -1,13 +1,16 @@
-﻿namespace Obstacles
+﻿using CAB201_Assignment.Utils;
+using CAB201_Assignment.ObstacleMap;
+
+namespace Obstacles
 {
     class MineField : Obstacle
     {
         protected override void InitializeObstacle()
         {
-            PromptCoordinates("Balls");
+            Util.PromptCoordinates("Balls");
         }
 
-        public override List<int[]> GetVision(int[] topLeftCoordinates, int[] bottomRightCoordinates)
+        public override List<int[]> GetVision(CharMap charMap)
         {
             // Originally it was int[,] but in reality the size of the vision would be unknown.
             // Especially for more complex objects.

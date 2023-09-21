@@ -59,32 +59,31 @@ namespace CAB201_Assignment.ObstacleMap
             {
                 Obstacle obstacle = obstacleFactory.CreateObstacle(code);
                 _map.PlaceObstacle(obstacle);
+                return;
             }
             catch (Exception)
             {
-                throw;
-            }
-
-            switch (code)
-            {
-                /* 
-                You could use some polymorphism here but I'll let you do that
-                sort of thing when you refactor the ultimately horrible code
-                that you will try and produce as a result of the ever
-                encroaching deadline.
-                */
-                case "d":
-                    _map.ShowSafeDirections();
-                    break;
-                case "m":
-                    _map.DisplayObstacleMap();
-                    break;
-                case "p":
-                    _map.FindSafePath();
-                    break;
-                default:
-                    Console.WriteLine("Invalid Option");
-                    break;
+                switch (code)
+                {
+                    /* 
+                    You could use some polymorphism here but I'll let you do that
+                    sort of thing when you refactor the ultimately horrible code
+                    that you will try and produce as a result of the ever
+                    encroaching deadline.
+                    */
+                    case "d":
+                        _map.ShowSafeDirections();
+                        break;
+                    case "m":
+                        _map.DisplayObstacleMap();
+                        break;
+                    case "p":
+                        _map.FindSafePath();
+                        break;
+                    default:
+                        Console.WriteLine("Invalid Option");
+                        break;
+                }
             }
         }
     }

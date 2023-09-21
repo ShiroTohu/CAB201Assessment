@@ -15,7 +15,6 @@ namespace CAB201_Assignment.ObstacleMap
         /// Generates the string representation of the Obstacle Map using
         /// the Obstacles found in 
         /// </summary>
-        /// <returns></returns>
         void DisplayObstacleMap();
         string FindSafePath();
         void PlaceObstacle(Obstacle obstacle);
@@ -54,11 +53,6 @@ namespace CAB201_Assignment.ObstacleMap
         }
 
         public Obstacle GetObstacle(int x,int y)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void RenderVision(CharMap charMap) // rename later
         {
             throw new NotImplementedException();
         }
