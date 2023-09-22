@@ -50,7 +50,24 @@ namespace CAB201_Assignment.ObstacleMap
 
         public void DisplayMap() 
         {
-            throw new NotImplementedException();
+            for (int row = 0; row < _charMap.GetLength(0) ; row++)
+            {
+                for (int column = 1; column < _charMap.GetLength(1); column++)
+                {
+                    Console.WriteLine(_charMap);
+                    string marker = Char.ToString(_charMap[row, column]);
+                    if (string.IsNullOrEmpty(marker))
+                    {
+                        Console.Write(".");
+                    }
+                    else 
+                    {
+                        Console.Write(marker);
+                    }
+                    
+                }
+                Console.WriteLine();
+            }
         }
 
         private void CreateCharMap()
@@ -59,6 +76,7 @@ namespace CAB201_Assignment.ObstacleMap
             foreach (Obstacle obstacle in _obstacles)
             {
                 obstacle.GetVision(this);
+                _charMap[obstacle.X, obstacle.Y] = obstacle.Marker;
             }
         }
 

@@ -22,7 +22,7 @@ class ObstacleFactory : IObstacleFactory
                 return CreateCamera();
             case "s":
                 return CreateSensor();
-            case "m":
+            case "mf":
                 return CreateMineField();
             default:
                 throw new Exception();
