@@ -3,7 +3,17 @@ using CAB201_Assignment.ObstacleMap;
 
 namespace Obstacles;
 
-class Sensor : Obstacle{
+class Sensor : Obstacle
+{
+    private char _marker = 'x';
+    public override char Marker
+    {
+        get
+        {
+            return _marker;
+        }
+    }
+
     protected override void InitializeObstacle()
     {
         Util.PromptCoordinates("Balls");

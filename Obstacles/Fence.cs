@@ -5,6 +5,15 @@ namespace Obstacles;
 class Fence : Obstacle {
     private int _length;
 
+    private char _marker = 'x';
+    public override char Marker
+    {
+        get
+        {
+            return _marker;
+        }
+    }
+
     protected override void InitializeObstacle()
     {
         Util.PromptCoordinates("Balls");

@@ -2,7 +2,16 @@ using CAB201_Assignment.ObstacleMap;
 using CAB201_Assignment.Utils;
 
 namespace Obstacles;
-class Camera : Obstacle {
+class Camera : Obstacle 
+{
+    private char _marker = 'x';
+    public override char Marker
+    {
+        get
+        {
+            return _marker;
+        }
+    }
     protected override void InitializeObstacle()
     {
         Util.PromptCoordinates("Balls");

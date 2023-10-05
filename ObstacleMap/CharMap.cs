@@ -45,24 +45,23 @@ namespace CAB201_Assignment.ObstacleMap
             _topLeftCell = topLeftCell;
             _bottomRightCell = bottomRightCell;
             _obstacles = obstacles;
-            CreateCharMap();
+            _charMap = CreateCharMap();
         }
 
         public void DisplayMap() 
         {
             for (int row = 0; row < _charMap.GetLength(0) ; row++)
             {
-                for (int column = 1; column < _charMap.GetLength(1); column++)
+                for (int column = 0; column < _charMap.GetLength(1); column++)
                 {
-                    Console.WriteLine(_charMap);
                     string marker = Char.ToString(_charMap[row, column]);
-                    if (string.IsNullOrEmpty(marker))
+                    if (marker == "\0")
                     {
                         Console.Write(".");
                     }
                     else 
                     {
-                        Console.Write(marker);
+                        Console.Write($"{marker}");
                     }
                     
                 }
@@ -70,21 +69,23 @@ namespace CAB201_Assignment.ObstacleMap
             }
         }
 
-        private void CreateCharMap()
+        private char[,] CreateCharMap()
         {
-            InitalizeMapDimensions();
+            char[,] charMap = InitalizeEmptyMap();
             foreach (Obstacle obstacle in _obstacles)
             {
                 obstacle.GetVision(this);
-                _charMap[obstacle.X, obstacle.Y] = obstacle.Marker;
+                charMap[obstacle.X, obstacle.Y] = obstacle.Marker;
             }
+            return charMap;
         }
 
-        private void InitalizeMapDimensions()
+        private char[,] InitalizeEmptyMap()
         {
             int width = _bottomRightCell[0] - _topLeftCell[0];
             int height = _bottomRightCell[1] - _topLeftCell[1];
-            _charMap = new char[width, height];
+            char[,] emptyMap = new char[width, height];
+            return emptyMap;
         }
 
         public bool CoordinateInMap(int[] coordinate)

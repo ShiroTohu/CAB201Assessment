@@ -2,8 +2,16 @@ using CAB201_Assignment.ObstacleMap;
 using CAB201_Assignment.Utils;
 
 namespace Obstacles;
-class Guard : Obstacle 
+class Guard : Obstacle
 {
+    private char _marker = 'x';
+    public override char Marker
+    {
+        get
+        {
+            return _marker;
+        }
+    }
     protected override void InitializeObstacle()
     {
         _coordinates = Util.PromptCoordinates("Enter the guard's location (X,Y):");

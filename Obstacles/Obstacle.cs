@@ -13,7 +13,6 @@ namespace Obstacles {
     abstract class Obstacle : IObstacle
     {
         protected List<int[]> _vision;
-        protected char _marker;
         protected int[] _coordinates; // origin of the Obsticle
         public int[] Coordinates
         {
@@ -37,12 +36,9 @@ namespace Obstacles {
             }
         }
 
-        public char Marker
+        public abstract char Marker
         {
-            get
-            {
-                return _marker;
-            }
+            get;
         }
 
         // must contain a non-null value when exiting the constructor, though this is supposed to be impleneted in the child classes
