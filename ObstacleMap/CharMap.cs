@@ -7,6 +7,10 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
+
+/**
+ * Responsible for printing out the map, nothing more than that.
+ */
 namespace CAB201_Assignment.ObstacleMap
 {
     interface ICharMap
@@ -17,7 +21,7 @@ namespace CAB201_Assignment.ObstacleMap
         bool CoordinateInMap(int[] coordinate);
     }
 
-    internal class CharMap : ICharMap
+    public class CharMap : ICharMap
     {
         private char[,] _charMap;
         private int[] _topLeftCell;
@@ -74,16 +78,24 @@ namespace CAB201_Assignment.ObstacleMap
             char[,] charMap = InitalizeEmptyMap();
             foreach (Obstacle obstacle in _obstacles)
             {
-                obstacle.GetVision(this);
-                charMap[obstacle.X, obstacle.Y] = obstacle.Marker;
+                int[] coordinates = ConvertToRelativeCoordinate(obstacle.GetVision(this)[0]);
+                Console.WriteLine($"{coordinates[0]}, {coordinates[1]}");
+                charMap[coordinates[0], coordinates[1]] = obstacle.Marker;
             }
             return charMap;
         }
 
+        private int[] ConvertToRelativeCoordinate(int[] coordinate)
+        {
+            int x = coordinate[0];
+            int y = coordinate[1];
+            return new int[] { x - TopLeftCell[0], y - TopLeftCell[1] };
+        }
+
         private char[,] InitalizeEmptyMap()
         {
-            int width = _bottomRightCell[0] - _topLeftCell[0];
-            int height = _bottomRightCell[1] - _topLeftCell[1];
+            int width = _bottomRightCell[0] - _topLeftCell[0] + 1;
+            int height = _bottomRightCell[1] - _topLeftCell[1] + 1;
             char[,] emptyMap = new char[width, height];
             return emptyMap;
         }

@@ -1,6 +1,7 @@
 using CAB201_Assignment.Utils;
 using Obstacles;
 using System.Diagnostics.Metrics;
+using System.Runtime.InteropServices;
 
 namespace CAB201_Assignment.ObstacleMap 
 {
@@ -16,14 +17,22 @@ namespace CAB201_Assignment.ObstacleMap
         /// the Obstacles found in 
         /// </summary>
         void DisplayObstacleMap();
-        string FindSafePath();
+        void FindSafePath();
         void PlaceObstacle(Obstacle obstacle);
-        Obstacle GetObstacle(int x, int y);
+        int[] GetMapBounds();
     }
 
-    class Map : IMap
+    public class Map : IMap
     {
         private List<Obstacle> _obstacles;
+        public List<Obstacle> Obstacles
+        {
+            get
+            {
+                return _obstacles;
+            }
+        }
+
         public Map()
         {
             _obstacles = new List<Obstacle>();
@@ -42,9 +51,9 @@ namespace CAB201_Assignment.ObstacleMap
             charMap.DisplayMap();
         }
 
-        public string FindSafePath()
+        public void FindSafePath()
         {
-            throw new NotImplementedException();
+            PathFinding.Main(this);
         }
 
         public void PlaceObstacle(Obstacle obstacle)
@@ -52,16 +61,33 @@ namespace CAB201_Assignment.ObstacleMap
             _obstacles.Add(obstacle);
         }
 
-        public Obstacle GetObstacle(int x,int y)
-        {
-            throw new NotImplementedException();
-        }
-
         private CharMap CreateCharMap()
         {
             int[] topLeftCell = Util.PromptCoordinates("Enter the location of the top-left cell of the map (X,Y):");
             int[] bottomRightCell = Util.PromptCoordinates("Enter the location of the top-left cell of the map (X,Y):");
             return new CharMap(topLeftCell, bottomRightCell, _obstacles);
+        }
+
+
+
+        public int[] GetMapBounds()
+        {
+            int x = 0;
+            int y = 0;
+
+            foreach (Obstacle obstacle in _obstacles)
+            {
+                if (obstacle.X > x)
+                {
+                    x = obstacle.X;
+                }
+                if (obstacle.Y > y) 
+                {
+                    y = obstacle.Y;
+                }
+            }
+
+            return new int[] { x, y };
         }
     }
 }

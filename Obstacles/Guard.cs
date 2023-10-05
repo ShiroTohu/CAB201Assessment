@@ -4,7 +4,7 @@ using CAB201_Assignment.Utils;
 namespace Obstacles;
 class Guard : Obstacle
 {
-    private char _marker = 'x';
+    private char _marker = 'g';
     public override char Marker
     {
         get
@@ -25,6 +25,7 @@ class Guard : Obstacle
         if (charMap.CoordinateInMap(_coordinates))
         {
             vision.Add(_coordinates);
+            Console.WriteLine($"{_coordinates[0]}, {_coordinates[1]}");
         }
         return vision;
     }

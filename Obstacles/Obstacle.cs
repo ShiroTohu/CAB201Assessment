@@ -10,30 +10,21 @@ namespace Obstacles {
         List<int[]> GetVision(CharMap charMap);
     }
 
-    abstract class Obstacle : IObstacle
+    public abstract class Obstacle : IObstacle
     {
-        protected List<int[]> _vision;
-        protected int[] _coordinates; // origin of the Obsticle
+        protected int _x;
+        protected int _y;
         public int[] Coordinates
         {
-            get => _coordinates;
+            get => new int[] { _x, _y };
         }
         public int X
         {
-            get
-            {
-                byte x = 0;
-                return _coordinates[x];
-            }
-            
+            get => _x;
         }
         public int Y
         {
-            get 
-            { 
-                byte y = 1;
-                return _coordinates[y];
-            }
+            get => _y;
         }
 
         public abstract char Marker
