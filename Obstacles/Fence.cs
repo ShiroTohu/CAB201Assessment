@@ -1,22 +1,18 @@
 using CAB201_Assignment.Utils;
 using CAB201_Assignment.ObstacleMap;
+using CAB201_Assignment.Obstacles.Nodes;
 
 namespace Obstacles;
 class Fence : Obstacle {
-    private int _length;
+    public Coordinate End;
 
-    private char _marker = 'x';
-    public override char Marker
-    {
-        get
-        {
-            return _marker;
-        }
-    }
+    private const char _marker = 'x';
+    public override char Marker { get => _marker; }
 
     protected override void InitializeObstacle()
     {
-        Util.PromptCoordinates("Balls");
+        Origin = new Coordinate(0, 0);
+        End = new Coordinate(0, 0);
     }
 
     public override List<int[]> GetVision(CharMap charMap)
