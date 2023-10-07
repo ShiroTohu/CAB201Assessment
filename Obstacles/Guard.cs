@@ -4,12 +4,11 @@ using CAB201_Assignment.Obstacles.Nodes;
 namespace Obstacles;
 class Guard : Obstacle
 {
-    private static readonly char _marker = 'g';
+    public const char Marker = 'g';
     // in a perfect world and to save memory we want all instances of the class to implement the same factory instance
-    private static NodeFactory _nodeFactory = new NodeFactory(_marker); 
+    private static NodeFactory _nodeFactory = new NodeFactory(Marker);
     protected override Coordinate Origin { get; }
     protected override NodeFactory NodeFactory { get => _nodeFactory; }
-    public static char Marker { get => _marker; }
     
     public Guard()
     {
@@ -34,7 +33,7 @@ class Guard : Obstacle
         } 
         else
         {
-            throw new Exception
+            throw new Exception();
         }
     }
 }

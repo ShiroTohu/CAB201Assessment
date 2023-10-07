@@ -22,19 +22,19 @@ interface IObstacleFactory
 
 class ObstacleFactory : IObstacleFactory
 {
-    public Obstacle CreateObstacle(string type) 
+    public Obstacle CreateObstacle(char type) 
     {
         switch(type) 
         {
-            case "g":
+            case Guard.Marker:
                 return CreateGuard();
-            case "f":
+            case Fence.Marker:
                 return CreateFence();
-            case "c":
+            case Camera.Marker:
                 return CreateCamera();
-            case "s":
+            case Sensor.Marker:
                 return CreateSensor();
-            case "mf":
+            case MineField.Marker:
                 return CreateMineField();
             default:
                 throw new ObstacleNotFound();

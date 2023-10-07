@@ -20,8 +20,9 @@ namespace CAB201_Assignment.Obstacles.Nodes
 {
     interface IVisionNodeFactory
     {
-        Node CreateVisionNode(int x, int y);
-        Node CreateVisionNode(string prompt);
+        Node CreateNode(Coordinate coordinate);
+        Node CreateNode(int x, int y);
+        Node CreateNode(string prompt);
     }
 
     /// <summary>
