@@ -1,10 +1,41 @@
+using CAB201_Assignment.Obstacles.Nodes;
 using CAB201_Assignment.Utils;
 using Obstacles;
 using System.Diagnostics.Metrics;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 namespace CAB201_Assignment.ObstacleMap 
 {
+    interface IMap
+    {
+        NodeMap GetNodeMap();
+        CharMap getCharMap();
+        IntMap GetIntMap();
+    }
+
+    public class Map : IMap
+    {
+        private List<Obstacle> _obstacles;
+        public NodeMap CreateNodeMap()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class NodeMap: IMap
+    {
+        public NodeMap()
+        {
+
+        }
+
+        public AddObsticle(Obstacle obstacle)
+        {
+
+        }
+    }
+
     /// <summary>
     /// The Interface to be implemented by the ObstacleMap
     /// </summary>

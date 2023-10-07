@@ -4,6 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+[Serializable]
+public class MaxNodeLimitReached : Exception
+{
+    public MaxNodeLimitReached() { }
+
+    public MaxNodeLimitReached(string message)
+        : base(message) { }
+
+    public MaxNodeLimitReached(string message, Exception inner)
+        : base(message, inner) { }
+}
+
 namespace CAB201_Assignment.Obstacles.Nodes
 {
     interface IVisionNodeFactory
@@ -42,13 +54,18 @@ namespace CAB201_Assignment.Obstacles.Nodes
             Marker = marker;
         }
 
+        public Node CreateNode(Coordinate coordinate)
+        {
+            return new Node(coordinate, Marker);
+        }
+
         /// <summary>
         /// creates a new instance of a VisionNode with the Factory's defined marker.
         /// </summary>
         /// <param name="x">x coordinate of the VisionNode</param>
         /// <param name="y">y coordinate of the VisionNode</param>
         /// <returns>An instance of the VisionNode class with the specified parameters and marker</returns>
-        public Node CreateVisionNode(int x, int y)
+        public Node CreateNode(int x, int y)
         {
             return new Node(x, y, Marker);
         }
@@ -58,7 +75,7 @@ namespace CAB201_Assignment.Obstacles.Nodes
         /// </summary>
         /// <param name="prompt">The prompt used when creating the VisionNode</param>
         /// <returns>An instance of the VisionNode class with the specified parameters and marker</returns>f the VisionNode</param>
-        public Node CreateVisionNode(string prompt)
+        public Node CreateNode(string prompt)
         {
             return new Node(prompt, Marker);
         }

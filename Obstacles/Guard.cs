@@ -9,23 +9,32 @@ class Guard : Obstacle
     private static NodeFactory _nodeFactory = new NodeFactory(_marker); 
     protected override Coordinate Origin { get; }
     protected override NodeFactory NodeFactory { get => _nodeFactory; }
-    public override char Marker { get => _marker; }
+    public static char Marker { get => _marker; }
     
     public Guard()
     {
         Origin = new Coordinate("Enter the guard's location (X,Y):");
     }
 
-    public override List<Node> GetVision(CharMap charMap) // doo doo coupling.
+    public Guard(int x, int y)
     {
-        // Originally it was int[,] but in reality the size of the vision would be unknown.
-        // Especially for more complex objects.
-        List<int[]> vision = new List<int[]>() {};
-        if (charMap.CoordinateInMap(_coordinates))
+        Origin = new Coordinate(x, y);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="charMap"></param>
+    /// <returns></returns>
+    public override Node HasVision(Coordinate coordinate) // doo doo coupling.
+    {
+        if (coordinate.Position == Origin.Position)
         {
-            vision.Add(_coordinates);
-            Console.WriteLine($"{_coordinates[0]}, {_coordinates[1]}");
+            return NodeFactory.CreateNode(coordinate);
+        } 
+        else
+        {
+            throw new Exception
         }
-        return vision;
     }
 }

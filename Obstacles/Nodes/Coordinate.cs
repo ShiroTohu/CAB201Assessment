@@ -13,6 +13,7 @@ namespace CAB201_Assignment.Obstacles.Nodes
     {
         int X { get; }
         int Y { get; }
+        public int[] Position { get; }
     }
 
     /// <summary>
@@ -22,6 +23,7 @@ namespace CAB201_Assignment.Obstacles.Nodes
     {
         public int X { get; }
         public int Y { get; }
+        public int[] Position { get => new int[] { X, Y }; }
 
         /// <summary>
         /// Node Constructor where the x and y coordinates are specified by the parameters.

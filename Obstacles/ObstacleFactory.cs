@@ -3,6 +3,18 @@ using System;
 using System.Runtime.CompilerServices;
 
 namespace Obstacles;
+[Serializable]
+public class ObstacleNotFound : Exception
+{
+    public ObstacleNotFound() { }
+
+    public ObstacleNotFound(string message)
+        : base(message) { }
+
+    public ObstacleNotFound(string message, Exception inner)
+        : base(message, inner) { }
+}
+
 interface IObstacleFactory
 {
     Obstacle CreateObstacle(string type);
@@ -25,7 +37,7 @@ class ObstacleFactory : IObstacleFactory
             case "mf":
                 return CreateMineField();
             default:
-                throw new Exception();
+                throw new ObstacleNotFound();
         }
     }
 
