@@ -5,6 +5,7 @@
         int X { get; }
         int Y { get; }
         public int[] Position { get; }
+        public int GetAxis(char axis);
     }
 
     /// <summary>
@@ -12,25 +13,23 @@
     /// </summary>
     public class Coordinate : IEquatable<Coordinate>
     {
-        public Axis X { get; }
-        public Axis Y { get; }
-        public Axis[] Position { get => new Axis[] { X, Y }; }
-        private static byte x = 0;
-        private static byte y = 1;
+        public int X { get; }
+        public int Y { get; }
+        public int[] Position { get => new int[] { X, Y }; }
 
         /// <summary>
         /// Node Constructor where the x and y coordinates are specified by the parameters.
         /// </summary>
         public Coordinate(int x, int y)
         {
-            X = new Axis(x);
-            Y = new Axis(y);
+            X = x;
+            Y = y;
         }
 
-        public Coordinate(int[] postiion)
+        public Coordinate(int[] postion)
         {
-            X = Position[x];
-            Y = Position[y];
+            X = postion[0];
+            Y = postion[1];
         }
 
         /// <summary>
@@ -38,10 +37,10 @@
         /// /// </summary>
         public Coordinate(string prompt)
         {
-            Axis[] coordinates = PromptCoordinates(prompt);
+            int[] postion = PromptCoordinates(prompt);
 
-            X = coordinates[x];
-            Y = coordinates[y];
+            X = postion[0];
+            Y = postion[1];
         }
 
         public bool Equals(Coordinate? otherCoordinate)
@@ -102,6 +101,19 @@
             int y = int.Parse(coordinates[1]);
 
             return new int[] { x, y };
+        }
+
+        public int GetAxis(char axis)
+        {
+            switch (axis)
+            {
+                case 'x':
+                    return this.X;
+                case 'y':
+                    return this.Y;
+                default:
+                    throw new Exception("Axis not found.");
+            }
         }
     }
 }

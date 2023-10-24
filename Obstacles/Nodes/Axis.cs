@@ -1,66 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CAB201_Assignment.Obstacles.Nodes
 {
-    public class Axis : IEquatable<Axis>, IComparable<Axis>
+    public class Axis
     { 
-        public int Value { get; }
-        public Axis(int value)
+        public static int GetMinAxis(int axis1, int axis2)
         {
-            Value = value;
-        }
-        public bool Equals(Axis? otherAxis)
-        {
-            if (otherAxis == null)
-                return false;
-
-            return (this.Value == otherAxis.Value);
+            return axis1 < axis2 ? axis1 : axis2;
         }
 
-        public override bool Equals(object? obj)
+        public static int GetMaxAxis(int axis1, int axis2)
         {
-            return this.Equals(obj as Axis);
+            return axis1 > axis2 ? axis1 : axis2;
         }
 
-        public override int GetHashCode() // probably correct ¯\_(ツ)_/¯
+        public static bool IsBetweenRange(int value, int min, int max)
         {
-            return this.Value.GetHashCode();
-        }
-
-        public int CompareTo(Axis? otherAxis)
-        {
-            if (otherAxis == null) return 1;
-
-            return this.Value.CompareTo(otherAxis.Value);
-        }
-
-        // Define the is greater than operator.
-        public static bool operator > (Axis operand1, Axis operand2)
-        {
-            return operand1.CompareTo(operand2) > 0;
-        }
-
-        // Define the is less than operator.
-        public static bool operator < (Axis operand1, Axis operand2)
-        {
-            return operand1.CompareTo(operand2) < 0;
-        }
-
-        // Define the is greater than or equal to operator.
-        public static bool operator >= (Axis operand1, Axis operand2)
-        {
-            return operand1.CompareTo(operand2) >= 0;
-        }
-
-        // Define the is less than or equal to operator.
-        public static bool operator <= (Axis operand1, Axis operand2)
-        {
-            return operand1.CompareTo(operand2) <= 0;
+            return value < min && value > max;
         }
     }
 }

@@ -13,11 +13,6 @@ class Guard : Obstacle
         Origin = new Coordinate("Enter the guard's location (X,Y):");
     }
 
-    public Guard(Coordinate coordinate)
-    {
-        Origin = coordinate;
-    }
-
     protected override bool HasVision(Coordinate coordinate)
     {
         if (coordinate == Origin)

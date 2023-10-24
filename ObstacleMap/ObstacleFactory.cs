@@ -1,8 +1,9 @@
 using System.Diagnostics.Metrics;
 using System;
 using System.Runtime.CompilerServices;
+using Obstacles;
 
-namespace Obstacles;
+namespace CAB201_Assignment.ObstacleMap;
 [Serializable]
 public class ObstacleNotFound : Exception
 {
@@ -22,9 +23,9 @@ interface IObstacleFactory
 
 class ObstacleFactory : IObstacleFactory
 {
-    public Obstacle CreateObstacle(char type) 
+    public Obstacle CreateObstacle(char type)
     {
-        switch(type) 
+        switch (type)
         {
             case Guard.Marker:
                 return CreateGuard();
@@ -41,27 +42,27 @@ class ObstacleFactory : IObstacleFactory
         }
     }
 
-    private Guard CreateGuard() 
+    private Guard CreateGuard()
     {
         return new Guard();
     }
 
-    private Fence CreateFence() 
+    private Fence CreateFence()
     {
         return new Fence();
     }
 
-    private Camera CreateCamera() 
+    private Camera CreateCamera()
     {
         return new Camera();
     }
 
-    private Sensor CreateSensor() 
+    private Sensor CreateSensor()
     {
         return new Sensor();
     }
 
-    private MineField CreateMineField() 
+    private MineField CreateMineField()
     {
         return new MineField();
     }
