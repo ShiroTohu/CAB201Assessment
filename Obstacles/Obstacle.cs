@@ -4,34 +4,44 @@ using System.Runtime.CompilerServices;
 
 namespace Obstacles
 {
-    interface IObstacle {
-        int[] Coordinates { get; }
+    interface IObstacle
+    {
+        Coordinate Origin { get; }
         int X { get; }
         int Y { get; }
-        Node HasVision(Coordinate coordinate);
+        bool HasVision(Coordinate coordinate);
     }
 
-    // I CAN'T MAKE THE MARKER ENFORCABLE BY THE ABSTRACT CLASS WITHOUT REMOVING THE CONST ATTRIBUTE WHICH IN TURNS WON'T ALLOW ME TO USE IT IN SWITHCES.
-    public abstract class Obstacle : IObstacle
+    public abstract class Obstacle : NodeFactory, IObstacle
     {
+        public abstract Coordinate Origin { get; }
         public static char Marker;
-        protected abstract Coordinate Origin { get; }
-        protected abstract NodeFactory NodeFactory { get; }
         public int X { get => Origin.X; }
         public int Y { get => Origin.Y; }
-        public int[] Coordinates { get => new int[] { X, Y }; }
-        public abstract Node HasVision(Coordinate coordinate);
-    }
+        public Obstacle() : base(Marker) { }
 
-    [Serializable]
-    public class ObsticleHasNoVision : Exception
-    {
-        public ObsticleHasNoVision() { }
+        /// <summary>
+        /// Returns a node if the Obsticle has vision. Raises an Error if the Obsticle doesn't
+        /// have vision. The coordinates are not relative to a grid selection but relative to 
+        /// the whole grid. 
+        /// 
+        /// The implementation of this function can vary across different classes, but how
+        /// the value is gotten doesn't matter too much.
+        /// </summary>
+        /// <param name="coordinate"></param>
+        /// <returns></returns>
+        protected abstract bool HasVision(Coordinate coordinate);
 
-        public ObsticleHasNoVision(string message)
-            : base(message) { }
-
-        public ObsticleHasNoVision(string message, Exception inner)
-            : base(message, inner) { }
+        public Node getNode(Coordinate coordinate)
+        {
+            if (HasVision(coordinate))
+            {
+                return CreateNode(coordinate);
+            }
+            else
+            {
+                throw new Exception();
+            }
+        }
     }
 }

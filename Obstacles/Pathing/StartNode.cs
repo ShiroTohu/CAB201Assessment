@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CAB201_Assignment.Obstacles
+namespace CAB201_Assignment.Obstacles.Pathing
 {
-    public class Agent
+    internal class StartNode
     {
-
     }
 }
