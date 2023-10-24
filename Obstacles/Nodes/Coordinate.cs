@@ -1,13 +1,4 @@
-﻿using CAB201_Assignment.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Xml.Linq;
-
-namespace CAB201_Assignment.Obstacles.Nodes
+﻿namespace CAB201_Assignment.Obstacles.Nodes
 {
     interface ICoordinate
     {
@@ -19,19 +10,27 @@ namespace CAB201_Assignment.Obstacles.Nodes
     /// <summary>
     /// Coordinates is not a physical point on a map. Instead it is an imaginary point.
     /// </summary>
-    public class Coordinate
+    public class Coordinate : IEquatable<Coordinate>
     {
-        public int X { get; }
-        public int Y { get; }
-        public int[] Position { get => new int[] { X, Y }; }
+        public Axis X { get; }
+        public Axis Y { get; }
+        public Axis[] Position { get => new Axis[] { X, Y }; }
+        private static byte x = 0;
+        private static byte y = 1;
 
         /// <summary>
         /// Node Constructor where the x and y coordinates are specified by the parameters.
         /// </summary>
         public Coordinate(int x, int y)
         {
-            X = x;
-            Y = y;
+            X = new Axis(x);
+            Y = new Axis(y);
+        }
+
+        public Coordinate(int[] postiion)
+        {
+            X = Position[x];
+            Y = Position[y];
         }
 
         /// <summary>
@@ -39,13 +38,25 @@ namespace CAB201_Assignment.Obstacles.Nodes
         /// /// </summary>
         public Coordinate(string prompt)
         {
-            int[] coordinates = PromptCoordinates(prompt);
-
-            byte x = 0;
-            byte y = 1;
+            Axis[] coordinates = PromptCoordinates(prompt);
 
             X = coordinates[x];
             Y = coordinates[y];
+        }
+
+        public bool Equals(Coordinate? otherCoordinate)
+        {
+            if (otherCoordinate == null)
+            {
+                return false;
+            }
+                
+            return (Position == otherCoordinate.Position);
+        }
+
+        public override bool Equals(Object? obj)
+        {
+            return this.Equals(obj as Axis);
         }
 
         /// <summary>

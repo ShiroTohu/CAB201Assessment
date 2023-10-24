@@ -6,7 +6,6 @@ class Guard : Obstacle
 {
     public new const char Marker = 'g';
     // in a perfect world and to save memory we want all instances of the class to implement the same factory instance
-    private static NodeFactory _nodeFactory = new NodeFactory(Marker);
     public override Coordinate Origin { get; }
     
     public Guard()
@@ -19,9 +18,9 @@ class Guard : Obstacle
         Origin = coordinate;
     }
 
-    public override bool HasVision(Coordinate coordinate)
+    protected override bool HasVision(Coordinate coordinate)
     {
-        if (coordinate.Position == Origin.Position)
+        if (coordinate == Origin)
         {
             return true;
         } 

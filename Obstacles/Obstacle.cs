@@ -4,12 +4,24 @@ using System.Runtime.CompilerServices;
 
 namespace Obstacles
 {
+    [Serializable]
+    public class ObstacleCreationException : Exception
+    {
+        public ObstacleCreationException() { }
+
+        public ObstacleCreationException(string message)
+            : base(message) { }
+
+        public ObstacleCreationException(string message, Exception inner)
+            : base(message, inner) { }
+    }
+
     interface IObstacle
     {
         Coordinate Origin { get; }
         int X { get; }
         int Y { get; }
-        bool HasVision(Coordinate coordinate);
+        Node getNode(Coordinate coordinate);
     }
 
     public abstract class Obstacle : NodeFactory, IObstacle
