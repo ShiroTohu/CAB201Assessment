@@ -32,7 +32,7 @@ namespace Obstacles
     {
         public abstract Coordinate Origin { get; }
         public static char Marker;
-        public static char Ignored;
+        public static bool IsIgnored;
         public int X { get => Origin.X; }
         public int Y { get => Origin.Y; }
         public Obstacle() : base(Marker) { }

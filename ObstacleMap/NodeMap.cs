@@ -7,12 +7,18 @@ namespace CAB201_Assignment.ObstacleMap
 {
     public class NodeMap : ObstacleFactory
     {
-        List<List<Node>> gridMap;
-        List<Obstacle> obstacleList;
+        List<List<Node>> nodeMap = new List<List<Node>>();
+        List<Obstacle> obstacleList = new List<Obstacle>();
+        Bounds Bounds;
 
         public NodeMap()
         {
+            Bounds = DynamicallyCreateBounds();
+        }
 
+        public NodeMap(Bounds bounds)
+        {
+            Bounds = bounds;
         }
 
         public void AddObstacle(Obstacle obstacle)
@@ -20,11 +26,11 @@ namespace CAB201_Assignment.ObstacleMap
             obstacleList.Add(obstacle);
         }
 
-        public Bounds CreateBounds()
+        public Bounds DynamicallyCreateBounds()
         {
             foreach (Obstacle obstacle in obstacleList)
             {
-
+                if 
             }
         }
 

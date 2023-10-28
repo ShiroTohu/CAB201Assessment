@@ -6,7 +6,7 @@ using System.Diagnostics.Metrics;
 namespace Obstacles;
 public class Camera : Obstacle 
 {
-    public new const bool Ignored = true;
+    public new const bool IsIgnored = true;
     public new const char Marker = 'c';
     // in a perfect world and to save memory we want all instances of the class to implement the same factory instance
     public override Coordinate Origin { get; }

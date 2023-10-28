@@ -11,7 +11,7 @@ namespace Obstacles
 {
     public class MineField : Obstacle
     {
-        public new const bool Ignored = false;
+        public new const bool IsIgnored = false;
         public new const char Marker = 'b';
         // in a perfect world and to save memory we want all instances of the class to implement the same factory instance
         public override Coordinate Origin { get; }

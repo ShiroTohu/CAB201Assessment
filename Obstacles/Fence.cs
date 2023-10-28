@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 
 namespace Obstacles;
 public class Fence : Obstacle {
-    public new const bool Ignored = false;
+    public new const bool IsIgnored = false;
 
     public new const char Marker = 'f';
     public override Coordinate Origin { get; }
