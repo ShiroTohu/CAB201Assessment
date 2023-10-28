@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace CAB201_Assignment.ObstacleMap
 {
-    public class PathFinding : AStar
+    public class PathFindingMap
     {
         private static Type[] _ignore = new Type[] { typeof(Camera) };
         private NodeMap _nodeMap;

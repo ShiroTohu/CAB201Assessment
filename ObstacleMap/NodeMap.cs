@@ -7,7 +7,26 @@ namespace CAB201_Assignment.ObstacleMap
 {
     public class NodeMap : ObstacleFactory
     {
-        private List<Obstacle> _obstacles = new List<Obstacle>();
+        List<List<Node>> gridMap;
+        List<Obstacle> obstacleList;
+
+        public NodeMap()
+        {
+
+        }
+
+        public void AddObstacle(Obstacle obstacle)
+        {
+            obstacleList.Add(obstacle);
+        }
+
+        public Bounds CreateBounds()
+        {
+            foreach (Obstacle obstacle in obstacleList)
+            {
+
+            }
+        }
 
         public void ShowSafeDirections()
         {

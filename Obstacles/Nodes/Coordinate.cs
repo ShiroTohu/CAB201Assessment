@@ -91,13 +91,11 @@ namespace CAB201_Assignment.Obstacles.Nodes
             return axis1 > axis2 ? axis1 : axis2;
         }
 
-        public bool IsBetween(Coordinate coordinate1, Coordinate coordinate2)
+        public bool IsBetween(Bounds bounds)
         {
-            int xMax = GetMaxAxis(coordinate1.X, coordinate2.X);
-            int xMin = GetMinAxis(coordinate1.X, coordinate2.X);
-            int yMax = GetMaxAxis(coordinate1.Y, coordinate2.Y);
-            int yMin = GetMinAxis(coordinate1.Y, coordinate2.Y);
-            return (X >= xMin && X <= xMax) && (Y >= yMin && Y <= yMax);
+            bool xIsValid = X > bounds.TopLeftCoordinate.X && X < bounds.BottomRightCoordinate.X;
+            bool yIsValid = Y > bounds.TopLeftCoordinate.Y && Y < bounds.BottomRightCoordinate.Y;
+            return (X > bounds.TopLeftCoordinate.X && X < bounds.BottomRightCoordinate.X);
         }
     }
 }

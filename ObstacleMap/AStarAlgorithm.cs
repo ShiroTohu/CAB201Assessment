@@ -1,4 +1,5 @@
 ﻿using CAB201_Assignment.Obstacles.Nodes;
+using CAB201_Assignment.Obstacles.Pathing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,19 +32,19 @@ namespace CAB201_Assignment.ObstacleMap
             NodeMap = nodeMap;
         }
 
-        public Stack<Node> FindPath(Vector2 Start, Vector2 End)
+        public Stack<Node> FindPath(StartNode startNode, EndNode endNode)
         {
-            Node start = new Node(new Vector2((int)(Start.X / Node.NODE_SIZE), (int)(Start.Y / Node.NODE_SIZE)), true);
-            Node end = new Node(new Vector2((int)(End.X / Node.NODE_SIZE), (int)(End.Y / Node.NODE_SIZE)), true);
+            StartNode StartNode = startNode;
+            EndNode EndNode = endNode;
 
             Stack<Node> Path = new Stack<Node>();
             PriorityQueue<Node, float> OpenList = new PriorityQueue<Node, float>();
             List<Node> ClosedList = new List<Node>();
             List<Node> adjacencies;
-            Node current = start;
+            Node current = StartNode;
 
             // add start node to Open List
-            OpenList.Enqueue(start, start.F);
+            OpenList.Enqueue(StartNode, StartNode.F);
 
             while (OpenList.Count != 0 && !ClosedList.Exists(x => x.Position == end.Position))
             {
@@ -53,7 +54,7 @@ namespace CAB201_Assignment.ObstacleMap
 
                 foreach (Node n in adjacencies)
                 {
-                    if (!ClosedList.Contains(n) && n.Walkable)
+                    if (!ClosedList.Contains(n) && n.Solid)
                     {
                         bool isFound = false;
                         foreach (var oLNode in OpenList.UnorderedItems)
@@ -66,7 +67,7 @@ namespace CAB201_Assignment.ObstacleMap
                         if (!isFound)
                         {
                             n.Parent = current;
-                            n.DistanceToTarget = Math.Abs(n.Position.X - end.Position.X) + Math.Abs(n.Position.Y - end.Position.Y);
+                            n.DistanceToTarget = Math.Abs(n.X - end.X) + Math.Abs(n.Y - end.Y);
                             n.Cost = n.Weight + n.Parent.Cost;
                             OpenList.Enqueue(n, n.F);
                         }

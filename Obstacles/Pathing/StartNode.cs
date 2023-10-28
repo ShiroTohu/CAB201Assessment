@@ -4,9 +4,9 @@ namespace CAB201_Assignment.Obstacles.Pathing
 {
     public class StartNode : Node
     {
-        public StartNode(Coordinate position, bool solid, char marker = '.', float weight = 1) : base(position, solid, marker, weight) 
+        public StartNode(Coordinate position, char marker = '.', float weight = 1) : base(position, false, marker, weight) 
         {
-             = true;
+            Start = true;
         }
     }
 }

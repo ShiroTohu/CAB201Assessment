@@ -16,10 +16,23 @@ namespace Obstacles
             : base(message, inner) { }
     }
 
-    public abstract class Obstacle : NodeFactory
+    interface IObstacle
+    {
+        Coordinate Origin { get; }
+        static char Marker { get; }
+        static char Ignored { get; }
+        int X { get; }
+        int Y { get; }
+        bool HasVision(Coordinate coordinate);
+        Node GetNode(Coordinate coordinate);
+        List<Node> GetCoverage(Bounds bounds);
+    }
+
+    public abstract class Obstacle : NodeFactory, IObstacle
     {
         public abstract Coordinate Origin { get; }
         public static char Marker;
+        public static char Ignored;
         public int X { get => Origin.X; }
         public int Y { get => Origin.Y; }
         public Obstacle() : base(Marker) { }
@@ -48,6 +61,6 @@ namespace Obstacles
             }
         }
 
-        public abstract List<Node> GetCoverage(Coordinate TopLeft, Coordinate TopRight);
+        public abstract List<Node> GetCoverage(Bounds bounds);
     }
 }

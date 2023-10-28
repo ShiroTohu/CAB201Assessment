@@ -4,9 +4,10 @@ namespace CAB201_Assignment.Obstacles.Pathing
 {
     public class EndNode : Node
     {
-        public EndNode(Coordinate position, bool solid, char marker = '.', float weight = 1) : base(position, solid, marker, weight)
+        public EndNode(Coordinate position, char marker = '.', float weight = 1) : base(position, false, marker, weight)
         {
-            end = true;
+            End = true;
+            Solid = false;
         }
     }
 }

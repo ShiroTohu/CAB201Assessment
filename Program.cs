@@ -36,27 +36,36 @@ class Program
 
     private static void CodeSelector(char input)
     {
-        try
+        switch(input)
         {
-            _nodeMap.AddObstacle(input);
-        } catch (ObstacleNotFound)
-        {
-            Console.WriteLine("ObstacleNotFound");
-            switch (input)
-            {
-                case 'd':
-                    _nodeMap.ShowSafeDirections();
-                    break;
-                case 'm':
-                    _nodeMap.DisplayObstacleMap();
-                    break;
-                case 'p':
-                    _nodeMap.FindSafePath();
-                    break;
-                default:
-                    Console.WriteLine("Invalid option.");
-                    break;
-            }
+            // I have implemented alot of methods, but I think this one is the most readable out of all of them.
+            case Guard.Marker:
+                _nodeMap.AddObstacle(new Guard());
+                break;
+            case Fence.Marker:
+                _nodeMap.AddObstacle(new Fence());
+                break;
+            case Camera.Marker:
+                _nodeMap.AddObstacle(new Camera());
+                break;
+            case Sensor.Marker:
+                _nodeMap.AddObstacle(new Sensor());
+                break;
+            case MineField.Marker:
+                _nodeMap.AddObstacle(new MineField());
+                break;
+            case 'd':
+                _nodeMap.ShowSafeDirections();
+                break;
+            case 'm':
+                _nodeMap.DisplayObstacleMap();
+                break;
+            case 'p':
+                _nodeMap.FindSafePath();
+                break;
+            default:
+                Console.WriteLine("Invalid option.");
+                break;
         }
     }
 }
