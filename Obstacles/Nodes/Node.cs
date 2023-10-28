@@ -31,6 +31,7 @@ namespace CAB201_Assignment.Obstacles.Nodes
             }
         }
         
+        // TODO: Clean up this part of the code.
         public Node(Coordinate position, bool solid, char marker='.', float weight = 1) : base(position)
         {
             Parent = null;
@@ -51,6 +52,16 @@ namespace CAB201_Assignment.Obstacles.Nodes
             Marker = marker;
         }
 
+        public Node(int x, int y, bool solid, char marker = '.', float weight = 1) : base(x, y)
+        {
+            Parent = null;
+            DistanceToTarget = -1;
+            Cost = 1;
+            Weight = weight;
+            Solid = solid;
+            Marker = marker;
+        }
+
         public void SetAsClosed()
         {
             Closed = true;
@@ -59,6 +70,18 @@ namespace CAB201_Assignment.Obstacles.Nodes
         public void SetAsOpen()
         {
             Open = true;
+        }
+
+        public Node SetAsStart()
+        {
+            Start = true;
+            return this;
+        }
+
+        public Node SetAsEnd()
+        {
+            End = true;
+            return this;
         }
     }
 }

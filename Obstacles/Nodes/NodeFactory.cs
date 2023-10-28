@@ -57,7 +57,7 @@ namespace CAB201_Assignment.Obstacles.Nodes
 
         public Node CreateNode(Coordinate coordinate)
         {
-            return new Node(coordinate, Marker);
+            return new Node(coordinate, true, Marker);
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace CAB201_Assignment.Obstacles.Nodes
         /// <returns>An instance of the VisionNode class with the specified parameters and marker</returns>
         public Node CreateNode(int x, int y)
         {
-            return new Node(x, y, Marker);
+            return new Node(x, y, true, Marker);
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace CAB201_Assignment.Obstacles.Nodes
         /// <returns>An instance of the VisionNode class with the specified parameters and marker</returns>f the VisionNode</param>
         public Node CreateNode(string prompt)
         {
-            return new Node(prompt, Marker);
+            return new Node(prompt, true, Marker);
         }
     }
 }

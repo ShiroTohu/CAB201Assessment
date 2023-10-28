@@ -31,10 +31,10 @@ public class Guard : Obstacle
         return new Bounds(Origin, Origin);
     }
 
-    public List<Node> GetNodes(NodeMap nodeMap)
+    public override List<Node> GetNodes(Bounds bounds)
     {
         List<Node> nodes = new List<Node>();
-        if (Origin.IsBetween(nodeMap.Bounds))
+        if (Origin.IsBetween(bounds))
         {
             Node origin = CreateNode(Origin);
             nodes.Add(origin);

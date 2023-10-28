@@ -1,5 +1,6 @@
 using CAB201_Assignment.ObstacleMap;
 using CAB201_Assignment.Obstacles.Nodes;
+using System.Net;
 using System.Runtime.CompilerServices;
 
 namespace Obstacles
@@ -62,5 +63,6 @@ namespace Obstacles
         }
 
         public abstract Bounds GetBounds();
+        public abstract List<Node> GetNodes(Bounds bounds);
     }
 }

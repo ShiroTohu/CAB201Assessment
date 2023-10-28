@@ -1,79 +1,97 @@
 ﻿using CAB201_Assignment.Obstacles.Nodes;
+using CAB201_Assignment.Obstacles.Pathing;
 using Obstacles;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using Util;
+using static CAB201_Assignment.ObstacleMap.MarkerMap;
 
 namespace CAB201_Assignment.ObstacleMap
 {
-    public class NodeMap
+    interface INodeMap
     {
-        private List<Obstacle> _obstacleList = new List<Obstacle>();
-        public Bounds Bounds;
+        void ShowSafeDirections();
+        void DisplayObstacleMap();
+        void FindSafePath();
+    }
 
-        public NodeMap()
+    public class NodeMap : INodeMap
+    {
+        private List<Obstacle> _obstacleList;
+        List<List<Node>> nodeMap = new List<List<Node>>();
+
+        public NodeMap(List<Obstacle> obstacleList)
         {
-            Bounds = DynamicallyCreateBounds();
+            _obstacleList = obstacleList;
         }
 
-        public NodeMap(Bounds bounds)
+        public List<List<Node>> GenerateMap(Bounds bounds)
         {
-            Bounds = bounds;
-        }
-        public Bounds DynamicallyCreateBounds()
-        {
-            return new Bounds(topLeft, bottomRight);
-        }
-
-        private Bounds createTopLeftCoordinate()
-        {
-            Coordinate topLeftCoordinate = _obstacleList[0].Origin;
-            foreach (Obstacle obstacle in obstacleList)
+            List<List<Node>> nodeMap = new List<List<Node>>();
+            foreach (Obstacle obstacle in _obstacleList)
             {
-                if ()
+                if (obstacle.IsIgnored) { continue; }
+                List<Node> nodes = obstacle.GetNodes(bounds);
+                foreach (Node node in nodes)
                 {
-
+                    nodeMap[node.X][node.Y] = node;
                 }
             }
         }
+
+        private Bounds DynamicallyCreateBounds()
+        {
+            throw new NotImplementedException();
+        }
+
+        private Coordinate CreateTopLeftCoordinate()
+        {
+            throw new NotImplementedException();
+        }
+
+        private Coordinate CreateBottomRightCoordiante()
+        {
+            throw new NotImplementedException();
+        }
+
+
 
         public void AddObstacle(Obstacle obstacle)
         {
             _obstacleList.Add(obstacle);
         }
 
-        
-
-        
+        public List<Obstacle> GetObstacleList()
+        {
+            return _obstacleList;
+        }
 
         public void ShowSafeDirections()
         {
-            throw new NotImplementedException();
-            /*Coordinate coordinate = new Coordinate(Input.PromptCoordinates("Enter your current location (X,Y):"));
-            foreach (Obstacle obstacle in _obstacles)
-            {
-                if (obstacle.HasVision(coordinate)) {
-                    Console.WriteLine("Agent, your location is compromised. Abort mission.");
-                }
-                else if (!AdjacentNodesAreEmpty(coordinate))
-                {
-
-                }
-            }*/
+            new PathFinding(this).ShowSafeDirections();
         }
 
         public void DisplayObstacleMap()
         {
-            new MarkerMap(this);
+            new MarkerMap(this).DisplayObstacleMap();
         }
 
         public void FindSafePath()
         {
-            new PathFinding(this);
+            Node startNode = new Node("Enter your current location (X,Y):", false).SetAsStart();
+            Node endNode = new Node("Enter the location of the mission objective (X,Y):", false).SetAsEnd();
+            new PathFinding(this).FindSafePath();
         }
 
-        public List<Obstacle> GetObstacleList()
+        private void SetStartNode(Node startNode) 
         {
-            return _obstacles;
+            nodeMap[startNode.X][startNode.Y] = startNode;
+        }
+
+        private void SetEndNode(Node EndNode)
+        {
+            nodeMap[EndNode.X][EndNode.Y] = EndNode;
         }
     }
 }

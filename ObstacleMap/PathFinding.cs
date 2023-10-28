@@ -1,186 +1,134 @@
 ﻿using CAB201_Assignment.Obstacles.Nodes;
 using CAB201_Assignment.Obstacles.Pathing;
-using Obstacles;
-using System.Drawing;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace CAB201_Assignment.ObstacleMap
 {
-    public class PathFinding : PathFindingAlgorithm
+    public class PathFinding
     {
-        private List<List<Node>> _nodeMap = new List<List<Node>>();
-        private static Type[] _ignore = new Type[] { typeof(Camera) };
-        private NodeMap _nodeMap;
-        private Bounds _mapBounds;
-        private StartNode _startNode;
-        private EndNode _endNode;
+        NodeMap _nodeMap;
+        StartNode _startNode;
+        EndNode _endNode;
         public PathFinding(NodeMap nodeMap)
         {
             _nodeMap = nodeMap;
-            _startNode = new StartNode("Enter your current location (X,Y):");
-            _endNode = new EndNode("Enter the location of your objective (X,Y):");
-            _mapBounds = DefineBounds();
-        }
-
-        private void FindSafePath()
-        {
-            throw new NotImplementedException();
-        }
-
-        private Bounds DefineBounds()
-        {
-            Coordinate topLeftCoordinate = new Coordinate(0, 0);
-            Coordinate bottomRightCoordiante = new Coordinate(0, 0);
-            return new Bounds(topLeftCoordinate, bottomRightCoordiante);
-        }
-    }
-
-    /*[Serializable]
-    public class PathNotFoundException : Exception
-    {
-        public PathNotFoundException() { }
-
-        public PathNotFoundException(string message)
-            : base(message) { }
-
-        public PathNotFoundException(string message, Exception inner)
-            : base(message, inner) { }
-    }
-
-    public class PathFinding
-    {
-        public void Main(Map map) // this is what you call coupling :)
-        {
-            Point start = new Point("enter farting point");
-            Point goal = new Point("enter ending point");
-            int[,] grid = CreateIntMap(map, start, goal);
-
-            List<Point> path = FindShortestPath(grid, start, goal);
-
-            if (path != null)
-            {
-                Console.WriteLine("Shortest Path:");
-                foreach (var point in path)
-                {
-                    Console.WriteLine($"({point.X}, {point.Y})");
-                }
-            }
-            else
-            {
-                Console.WriteLine("No path found.");
-            }
         }
 
         public void FindSafePath()
         {
+
             throw new NotImplementedException();
         }
 
-        private int[,] CreateIntMap(Map map, Point start, Point goal)
+        public List<List<Node>> GenerateMap()
         {
-            int[,] intMap = CreateEmptyIntMap(map, start, goal);
-            foreach (Obstacle obstacle in map.Obstacles)
-            {
-
-            }
+            List<List<Node>> nodeMap = new List<List<Node>>();
+            Bounds bounds = DynamicallyCreateBounds();
         }
 
-        private static int[,] CreateEmptyIntMap(Map map, Point start, Point goal) 
+        private Bounds DynamicallyCreateBounds()
         {
-            int[] mapBounds = map.GetMapBounds();
-            if (start.X > mapBounds[0])
-            {
-                mapBounds[0] = start.X;
-            }
-            if (start.Y > mapBounds[1])
-            {
-                mapBounds[0] = start.Y;
-            }
-
-            if (goal.X > mapBounds[1])
-            {
-                mapBounds[0] = goal.X;
-            }
-            if (goal.Y > mapBounds[1])
-            {
-                mapBounds[0] = goal.Y;
-            }
-            return new int[mapBounds[0], mapBounds[1]];
+            List<List<Node>> nodeMap = new List<List<Node>>();
         }
 
-        public class Point
+        public void ShowSafeDirections()
         {
-            public int X { get; }
-            public int Y { get; }
-
-            public Point(string prompt)
-            {
-                int[] coordinates = Util.PromptCoordinates(prompt);
-                X = coordinates[0];
-                Y = coordinates[1];
-            }
-
-            public Point(int x, int y)
-            {
-                X = x;
-                Y = y;
-            }
+            throw new NotImplementedException();
         }
 
-        public static List<Point> FindShortestPath(int[,] grid, Point start, Point goal)
+        private void FindPath()
         {
-            int rows = grid.GetLength(0);
-            int cols = grid.GetLength(1);
+            throw new NotImplementedException();
+        }
+/*
+        public Stack<Node> FindPath(NodeMap nodeMap)
+        {
+            protected List<List<Node>> _nodeMap = new List<List<Node>>();
+            Stack<Node> Path = new Stack<Node>();
+            PriorityQueue<Node, float> OpenList = new PriorityQueue<Node, float>();
+            List<Node> ClosedList = new List<Node>();
+            List<Node> adjacencies;
+            Node current = StartNode;
 
-            bool[,] visited = new bool[rows, cols];
-            Point[,] parent = new Point[rows, cols];
+            // add start node to Open List
+            OpenList.Enqueue(StartNode, StartNode.F);
 
-            Queue<Point> queue = new Queue<Point>();
-            queue.Enqueue(start);
-            visited[start.X, start.Y] = true;
-
-            int[] dx = { -1, 0, 1, 0 }; // Possible horizontal moves
-            int[] dy = { 0, 1, 0, -1 }; // Possible vertical moves
-
-            while (queue.Count > 0)
+            while (OpenList.Count != 0 && !ClosedList.Exists(x => x.Position == end.Position))
             {
-                Point current = queue.Dequeue();
+                current = OpenList.Dequeue();
+                ClosedList.Add(current);
+                adjacencies = GetAdjacentNodes(current);
 
-                if (current.X == goal.X && current.Y == goal.Y)
+                foreach (Node n in adjacencies)
                 {
-                    // Reconstruct the path
-                    List<Point> path = new List<Point>();
-                    while (current != null)
+                    if (!ClosedList.Contains(n) && n.Solid)
                     {
-                        path.Add(current);
-                        current = parent[current.X, current.Y];
-                    }
-                    path.Reverse();
-                    return path;
-                }
-
-                // Explore adjacent cells
-                for (int i = 0; i < 4; i++)
-                {
-                    int newX = current.X + dx[i];
-                    int newY = current.Y + dy[i];
-
-                    if (IsValid(newX, newY, rows, cols) && grid[newX, newY] == 1 && !visited[newX, newY])
-                    {
-                        queue.Enqueue(new Point(newX, newY));
-                        visited[newX, newY] = true;
-                        parent[newX, newY] = current;
+                        bool isFound = false;
+                        foreach (var oLNode in OpenList.UnorderedItems)
+                        {
+                            if (oLNode.Element == n)
+                            {
+                                isFound = true;
+                            }
+                        }
+                        if (!isFound)
+                        {
+                            n.Parent = current;
+                            n.DistanceToTarget = Math.Abs(n.X - end.X) + Math.Abs(n.Y - end.Y);
+                            n.Cost = n.Weight + n.Parent.Cost;
+                            OpenList.Enqueue(n, n.F);
+                        }
                     }
                 }
             }
 
-            // No path found
-            throw new PathNotFoundException("No path found.");
+            // construct path, if end was not closed return null
+            if (!ClosedList.Exists(x => x.Position == end.Position))
+            {
+                return null;
+            }
+
+            // if all good, return path
+            Node temp = ClosedList[ClosedList.IndexOf(current)];
+            if (temp == null) return null;
+            do
+            {
+                Path.Push(temp);
+                temp = temp.Parent;
+            } while (temp != start && temp != null);
+            return Path;
         }
 
-        public static bool IsValid(int x, int y, int rows, int cols)
+        private List<Node> GetAdjacentNodes(Node n)
         {
-            return x >= 0 && x < rows && y >= 0 && y < cols;
-        }
-    }*/
+            List<Node> temp = new List<Node>();
+
+            int row = (int)n.Position.Y;
+            int col = (int)n.Position.X;
+
+            if (row + 1 < GridRows)
+            {
+                temp.Add(Grid[col][row + 1]);
+            }
+            if (row - 1 >= 0)
+            {
+                temp.Add(Grid[col][row - 1]);
+            }
+            if (col - 1 >= 0)
+            {
+                temp.Add(Grid[col - 1][row]);
+            }
+            if (col + 1 < GridCols)
+            {
+                temp.Add(Grid[col + 1][row]);
+            }
+
+            return temp;
+        }*/
+    }
 }
-
