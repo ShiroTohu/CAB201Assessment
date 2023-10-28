@@ -17,8 +17,8 @@ namespace CAB201_Assignment.Obstacles.Nodes
     /// </summary>
     public class Coordinate : IEquatable<Coordinate>
     {
-        public int X { get; }
-        public int Y { get; }
+        public int X { get; set; } // You need to be able to set these from outside of the class incase you want to change them, this can reduce arbitrary code creating the Axises in other parts of the program... take a look at NodeMap DynamicallyCreateBounds for example
+        public int Y { get; set; }
         public virtual int[] Position { get => new int[] { X, Y }; }
 
         /// <summary>

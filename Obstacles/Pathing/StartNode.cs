@@ -8,5 +8,11 @@ namespace CAB201_Assignment.Obstacles.Pathing
         {
             Start = true;
         }
+
+        public StartNode(string prompt, char marker = '.', float weight = 1) : base(prompt, false, marker, weight)
+        {
+            End = true;
+            Solid = false;
+        }
     }
 }

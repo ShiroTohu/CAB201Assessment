@@ -5,10 +5,9 @@ using Util;
 
 namespace CAB201_Assignment.ObstacleMap
 {
-    public class NodeMap : ObstacleFactory
+    public class NodeMap
     {
-        List<List<Node>> nodeMap = new List<List<Node>>();
-        List<Obstacle> obstacleList = new List<Obstacle>();
+        private List<Obstacle> _obstacleList = new List<Obstacle>();
         public Bounds Bounds;
 
         public NodeMap()
@@ -20,22 +19,31 @@ namespace CAB201_Assignment.ObstacleMap
         {
             Bounds = bounds;
         }
+        public Bounds DynamicallyCreateBounds()
+        {
+            return new Bounds(topLeft, bottomRight);
+        }
+
+        private Bounds createTopLeftCoordinate()
+        {
+            Coordinate topLeftCoordinate = _obstacleList[0].Origin;
+            foreach (Obstacle obstacle in obstacleList)
+            {
+                if ()
+                {
+
+                }
+            }
+        }
 
         public void AddObstacle(Obstacle obstacle)
         {
-            obstacleList.Add(obstacle);
+            _obstacleList.Add(obstacle);
         }
 
-        public Bounds DynamicallyCreateBounds()
-        {
-            foreach (Obstacle obstacle in obstacleList)
-            {
-                if (!obstacle.IsIgnored)
-                {
-                    obstacle.GetCoverage();
-                } 
-            }
-        }
+        
+
+        
 
         public void ShowSafeDirections()
         {
@@ -66,31 +74,6 @@ namespace CAB201_Assignment.ObstacleMap
         public List<Obstacle> GetObstacleList()
         {
             return _obstacles;
-        }
-
-        public void AddObstacle(char type)
-        {
-            switch (type)
-            {
-                case Guard.Marker:
-                     _obstacles.Add(CreateGuard());
-                    Console.WriteLine("Guard has been added to obstacleList");
-                    break;
-                case Fence.Marker:
-                    _obstacles.Add(CreateFence());
-                    break;
-                case Camera.Marker:
-                    _obstacles.Add(CreateCamera());
-                    break;
-                case Sensor.Marker:
-                    _obstacles.Add(CreateSensor());
-                    break;
-                case MineField.Marker:
-                    _obstacles.Add(CreateMineField());
-                    break;
-                default:
-                    throw new ObstacleNotFound();
-            }
         }
     }
 }

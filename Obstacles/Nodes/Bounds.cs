@@ -11,9 +11,24 @@ namespace CAB201_Assignment.Obstacles.Nodes
     {
         public Coordinate TopLeftCoordinate { get; }
         public Coordinate BottomRightCoordinate { get; }
+        public int Rows
+        {
+            get
+            {
+                return BottomRightCoordinate.X - TopLeftCoordinate.X;
+            }
+        }
+
+        public int Columns
+        {
+            get
+            {
+                return BottomRightCoordinate.Y - TopLeftCoordinate.Y;
+            }
+        }
         public Bounds(Coordinate topLeftCoordinate, Coordinate bottomRightCoordinate)
         {
-            this.TopLeftCoordinate = bottomRightCoordinate;
+            this.TopLeftCoordinate = topLeftCoordinate;
             this.BottomRightCoordinate = bottomRightCoordinate;
         }
     }

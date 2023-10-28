@@ -66,6 +66,9 @@ public class Fence : Obstacle {
     }
 
     public override Bounds GetBounds()
+    {
+        return new Bounds(Origin, End);
+    }
 
     public override List<Node> GetCoverage(Bounds bounds)
     {

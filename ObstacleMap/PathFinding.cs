@@ -5,8 +5,9 @@ using System.Drawing;
 
 namespace CAB201_Assignment.ObstacleMap
 {
-    public class PathFindingMap
+    public class PathFinding : PathFindingAlgorithm
     {
+        private List<List<Node>> _nodeMap = new List<List<Node>>();
         private static Type[] _ignore = new Type[] { typeof(Camera) };
         private NodeMap _nodeMap;
         private Bounds _mapBounds;

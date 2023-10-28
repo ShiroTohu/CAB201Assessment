@@ -9,34 +9,24 @@ using System.Threading.Tasks;
 
 namespace CAB201_Assignment.ObstacleMap
 {
-    public class Astar
+    public class PathFindingAlgorithm
     {
         NodeMap NodeMap;
-        int MapRows
-        {
-            get
-            {
-                return NodeMap.Rows;
-            }
-        }
-        int GridCols
-        {
-            get
-            {
-                return NodeMap.Columns;
-            }
-        }
+        // Nodes
+        StartNode StartNode;
+        EndNode EndNode;
+        Node currentNode;
 
-        public Astar(NodeMap nodeMap)
-        {
+        // Lists
+        List<Node> OpenList = new List<Node>();
+        List<Node> ClosedList = new List<Node>();
+
+        // others
+        bool goalReached = false;
+
+        public Stack<Node> FindSafePath(NodeMap nodeMap)
+        { 
             NodeMap = nodeMap;
-        }
-
-        public Stack<Node> FindPath(StartNode startNode, EndNode endNode)
-        {
-            StartNode StartNode = startNode;
-            EndNode EndNode = endNode;
-
             Stack<Node> Path = new Stack<Node>();
             PriorityQueue<Node, float> OpenList = new PriorityQueue<Node, float>();
             List<Node> ClosedList = new List<Node>();
