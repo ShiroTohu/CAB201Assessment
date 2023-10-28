@@ -26,7 +26,7 @@ public class Guard : Obstacle
         }
     }
 
-    public override List<Node> GetCoverage(Coordinate TopLeft, Coordinate TopRight)
+    public override List<Node> GetCoverage(Bounds bounds)
     {
         List<Node> nodes = new List<Node>();
         if (Origin.IsBetween(TopLeft, TopRight))

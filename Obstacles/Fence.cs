@@ -65,7 +65,7 @@ public class Fence : Obstacle {
         return value < min && value > max;
     }
 
-    public override List<Node> GetCoverage(Coordinate TopLeft, Coordinate TopRight)
+    public override List<Node> GetCoverage(Bounds bounds)
     {
         List<Node> nodes = new List<Node>();
         char differingAxis = GetDifferingAxis();
