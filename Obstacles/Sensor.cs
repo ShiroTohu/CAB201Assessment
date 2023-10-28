@@ -11,7 +11,7 @@ public class Sensor : Obstacle
     public override Coordinate Origin { get; }
     public double Range { get; }
 
-    public Sensor()
+    public Sensor() : base(Marker)
     {
         Origin = new Coordinate("Enter the sensor's location (X,Y):");
         Range = Input.PromptDouble("Enter the sensor's range (in klicks):");
@@ -27,10 +27,26 @@ public class Sensor : Obstacle
         return true;
     }
 
+    public override List<Node> GetNodes(Bounds bounds) 
+    {
+        List<Node> nodes = new List<Node>();
+        for (int X = Origin.X; X >= bounds.TopLeftCoordinate.X && X <= bounds.BottomRightCoordinate.X; X++)
+        {
+            for (int Y = Origin.Y; Y >= bounds.TopLeftCoordinate.Y && Y <= bounds.BottomRightCoordinate.Y; Y++)
+            {
+                Coordinate coordinate = new Coordinate(X, Y);
+                if (HasVision(coordinate))
+                {
+                    Node node = CreateNode(coordinate);
+                    nodes.Add(node);
+                }
+            }
+        }
+        return nodes;
+    }
     public override Bounds GetBounds()
     {
-
-        Coordinate topLeft = new Coordinate(Origin.X - (int) Math.Ceiling(Range), Origin.Y - (int) Math.Ceiling(Range));
+        Coordinate topLeft = new Coordinate(Origin.X - (int)Math.Ceiling(Range), Origin.Y - (int)Math.Ceiling(Range));
         Coordinate bottomRight = new Coordinate(Origin.X + (int)Math.Ceiling(Range), Origin.Y + (int)Math.Ceiling(Range));
         return new Bounds(topLeft, bottomRight);
     }

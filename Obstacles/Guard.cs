@@ -9,7 +9,7 @@ public class Guard : Obstacle
     // in a perfect world and to save memory we want all instances of the class to implement the same factory instance
     public override Coordinate Origin { get; }
     
-    public Guard()
+    public Guard() : base(Marker)
     {
         Origin = new Coordinate("Enter the guard's location (X,Y):");
     }

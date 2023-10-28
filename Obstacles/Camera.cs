@@ -13,7 +13,7 @@ public class Camera : Obstacle
     private char[] _directions = new char[4] { 'n', 'e', 's', 'w'};
     public char Direction { get; }
 
-    public Camera()
+    public Camera() : base(Marker)
     {
         Origin = new Coordinate("Enter the MineField's location (X,Y):");
         Direction = PromptDirection("Enter the direction the camera is facing(n, s, e or w):");
@@ -69,5 +69,24 @@ public class Camera : Obstacle
         {
             throw new NotImplementedException();
         }
+    }
+
+    public override List<Node> GetNodes(Bounds bounds)
+    {
+        // TODO: this is not the most effective way of getting the nodes that you need to build the map.
+        List<Node> nodes = new List<Node>();
+        for (int X = Origin.X; X >= bounds.TopLeftCoordinate.X && X <= bounds.BottomRightCoordinate.X; X++)
+        {
+            for (int Y = Origin.Y; Y >= bounds.TopLeftCoordinate.Y && Y <= bounds.BottomRightCoordinate.Y; Y++)
+            {
+                Coordinate coordinate = new Coordinate(X, Y);
+                if (HasVision(coordinate))
+                {
+                    Node node = CreateNode(coordinate);
+                    nodes.Add(node);
+                }
+            }
+        }
+        return nodes;
     }
 }

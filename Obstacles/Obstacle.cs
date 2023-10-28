@@ -26,17 +26,17 @@ namespace Obstacles
         int Y { get; }
         bool HasVision(Coordinate coordinate);
         Node GetNode(Coordinate coordinate);
-        List<Node> GetCoverage(Bounds bounds);
+        List<Node> GetNodes(Bounds bounds);
     }
 
     public abstract class Obstacle : NodeFactory, IObstacle
     {
         public abstract Coordinate Origin { get; }
-        public static char Marker;
+        public static char Marker { get; }
         public bool IsIgnored;
         public int X { get => Origin.X; }
         public int Y { get => Origin.Y; }
-        public Obstacle() : base(Marker) { }
+        public Obstacle(char Marker) : base(Marker) { }
 
         /// <summary>
         /// Returns a node if the Obsticle has vision. Raises an Error if the Obsticle doesn't
@@ -60,6 +60,11 @@ namespace Obstacles
             {
                 throw new Exception();
             }
+        }
+
+        public char GetMarker()
+        {
+            return Marker;
         }
 
         public abstract Bounds GetBounds();

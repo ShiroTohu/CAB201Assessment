@@ -15,14 +15,13 @@ class Program
     {
         while (!loopCompleted)
         {
-            DisplayPrompt();
-            char input = Input.PromptChar("x) Exit");
+            char input = DisplayPrompt();
             CodeSelector(input);
             if (input == 'x') { break; }
         }
     }
 
-    private static void DisplayPrompt()
+    private static char DisplayPrompt()
     {
         Console.WriteLine("Select one of the following options");
         Console.WriteLine("g) Add 'Guard' obstacle");
@@ -32,6 +31,8 @@ class Program
         Console.WriteLine("d) Show safe directions");
         Console.WriteLine("m) Display obstacle map");
         Console.WriteLine("p) Find safe path");
+        char input = Input.PromptChar("x) Exit");
+        return input;
     }
 
     private static void CodeSelector(char input)
@@ -51,9 +52,9 @@ class Program
             case Sensor.Marker:
                 _nodeMap.AddObstacle(new Sensor());
                 break;
-            case MineField.Marker:
+            /*case MineField.Marker:
                 _nodeMap.AddObstacle(new MineField());
-                break;
+                break;*/
             case 'd':
                 _nodeMap.ShowSafeDirections();
                 break;

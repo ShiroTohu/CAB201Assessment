@@ -9,7 +9,7 @@
 
 namespace Obstacles
 {
-    public class MineField : Obstacle
+    /*public class MineField : Obstacle
     {
         public new const bool IsIgnored = false;
         public new const char Marker = 'b';
@@ -44,5 +44,5 @@ namespace Obstacles
                 throw new NotImplementedException();
             }
         }
-    }
+    }*/
 }

@@ -1,5 +1,4 @@
 ﻿using CAB201_Assignment.Obstacles.Nodes;
-using CAB201_Assignment.Obstacles.Pathing;
 using Obstacles;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -14,48 +13,21 @@ namespace CAB201_Assignment.ObstacleMap
         void ShowSafeDirections();
         void DisplayObstacleMap();
         void FindSafePath();
+        void AddObstacle(Obstacle obstacle);
+        void AddNode(Node node);
+        List<Obstacle> GetObstacleList();
+        List<List<Node>> GetNodeMatrix();
+
+        Node GetStartNode();
+        Node GetEndNode();
     }
 
     public class NodeMap : INodeMap
     {
-        private List<Obstacle> _obstacleList;
-        List<List<Node>> nodeMap = new List<List<Node>>();
-
-        public NodeMap(List<Obstacle> obstacleList)
-        {
-            _obstacleList = obstacleList;
-        }
-
-        public List<List<Node>> GenerateMap(Bounds bounds)
-        {
-            List<List<Node>> nodeMap = new List<List<Node>>();
-            foreach (Obstacle obstacle in _obstacleList)
-            {
-                if (obstacle.IsIgnored) { continue; }
-                List<Node> nodes = obstacle.GetNodes(bounds);
-                foreach (Node node in nodes)
-                {
-                    nodeMap[node.X][node.Y] = node;
-                }
-            }
-        }
-
-        private Bounds DynamicallyCreateBounds()
-        {
-            throw new NotImplementedException();
-        }
-
-        private Coordinate CreateTopLeftCoordinate()
-        {
-            throw new NotImplementedException();
-        }
-
-        private Coordinate CreateBottomRightCoordiante()
-        {
-            throw new NotImplementedException();
-        }
-
-
+        private List<Obstacle> _obstacleList = new List<Obstacle>();
+        private List<List<Node>> nodeMatrix = new List<List<Node>>();
+        private Node? StartNode;
+        private Node? EndNode;
 
         public void AddObstacle(Obstacle obstacle)
         {
@@ -79,19 +51,57 @@ namespace CAB201_Assignment.ObstacleMap
 
         public void FindSafePath()
         {
-            Node startNode = new Node("Enter your current location (X,Y):", false).SetAsStart();
-            Node endNode = new Node("Enter the location of the mission objective (X,Y):", false).SetAsEnd();
+            StartNode = new Node("Enter your current location (X,Y):", false).SetAsStart();
+            EndNode = new Node("Enter the location of the mission objective (X,Y):", false).SetAsEnd();
+
+            SetStartNode(StartNode);
+            SetEndNode(EndNode);
+
             new PathFinding(this).FindSafePath();
         }
 
         private void SetStartNode(Node startNode) 
         {
-            nodeMap[startNode.X][startNode.Y] = startNode;
+            nodeMatrix[startNode.X][startNode.Y] = startNode;
         }
 
         private void SetEndNode(Node EndNode)
         {
-            nodeMap[EndNode.X][EndNode.Y] = EndNode;
+            nodeMatrix[EndNode.X][EndNode.Y] = EndNode;
+        }
+
+        public Node GetStartNode()
+        {
+            if (StartNode != null)
+            {
+                return StartNode;
+            }
+            else
+            {
+                throw new Exception("You need to decalre the StartNode before you can reference it");
+            }
+        }
+
+        public Node GetEndNode()
+        {
+            if (EndNode != null)
+            {
+                return EndNode;
+            }
+            else
+            {
+                throw new Exception("You need to decalre the EndNode before you can reference it");
+            }
+        }
+
+        public void AddNode(Node node)
+        {
+            nodeMatrix[node.X][node.Y] = node;
+        }
+
+        public List<List<Node>> GetNodeMatrix()
+        {
+            return nodeMatrix;
         }
     }
 }

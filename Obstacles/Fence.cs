@@ -28,7 +28,7 @@ public class Fence : Obstacle {
         }
     }
 
-    public Fence()
+    public Fence() : base(Marker)
     {
         Origin = new Coordinate("Enter the location where the fence starts(X, Y):");
         End = new Coordinate("Enter the location where the fence ends (X,Y):");
@@ -70,7 +70,7 @@ public class Fence : Obstacle {
         return new Bounds(Origin, End);
     }
 
-    public override List<Node> GetCoverage(Bounds bounds)
+    public override List<Node> GetNodes(Bounds bounds)
     {
         List<Node> nodes = new List<Node>();
         char differingAxis = GetDifferingAxis();
@@ -84,16 +84,20 @@ public class Fence : Obstacle {
         for (int range = minAxis; range < maxAxis; range++)
         {
             Coordinate coordinate;
-            switch(differingAxis)
+            
+            switch (differingAxis)
             {
                 case 'x':
                     coordinate = new Coordinate(range, Origin.Y);
+                    Console.WriteLine($"{Origin.Y}, {range}");
                     break;
                 case 'y':
                     coordinate = new Coordinate(Origin.X, range);
+                    Console.WriteLine($"{range}, {Origin.Y}");
                     break;
                 default:
                     throw new Exception();
+                    
             }
             
             nodes.Add(CreateNode(coordinate));

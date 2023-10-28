@@ -1,6 +1,8 @@
 ﻿using CAB201_Assignment.Obstacles.Nodes;
 using Obstacles;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Xml.Linq;
 using Util;
 
 /**
@@ -11,37 +13,30 @@ namespace CAB201_Assignment.ObstacleMap
 
     public class MarkerMap
     {
+        private NodeMap NodeMap;
+        private Bounds bounds;
+        private char[,] _charMap;
 
         public MarkerMap(NodeMap nodeMap) 
         {
+            NodeMap = nodeMap;
+
             Coordinate topLeftCoordinate = Input.PromptCoordinate("Enter the location of the top-left cell of the map (X,Y):");
             Coordinate bottomRightCoordinate = Input.PromptCoordinate("Enter the location of the bottom-right cell of the map (X,Y):");
             ValidateInputs(topLeftCoordinate , bottomRightCoordinate);
 
-            _markerMap = InitalizeCharMap();
-            DisplayMap();
+            bounds = new Bounds(topLeftCoordinate, bottomRightCoordinate);
+
+            _charMap = InitalizeCharMap();
         }
 
         public void DisplayObstacleMap()
         {
-
-        }
-
-        private static void ValidateInputs(Coordinate TopLeftCell, Coordinate BottomRightCell)
-        {
-            if (TopLeftCell.X > BottomRightCell.X && TopLeftCell.Y > BottomRightCell.Y)
+            for (int row = 0; row < _charMap.GetLength(0); row++)
             {
-                throw new Exception("Invalid Input");
-            }  
-        }
-
-        private void DisplayMap()
-        {
-            for (int row = 0; row < _markerMap.GetLength(0); row++)
-            {
-                for (int column = 0; column < _markerMap.GetLength(1); column++)
+                for (int column = 0; column < _charMap.GetLength(1); column++)
                 {
-                    string marker = Char.ToString(_markerMap[row, column]);
+                    string marker = Char.ToString(_charMap[row, column]);
                     if (marker == "\0")
                     {
                         Console.Write(".");
@@ -55,6 +50,14 @@ namespace CAB201_Assignment.ObstacleMap
                 Console.WriteLine();
             }
         }
+
+        private static void ValidateInputs(Coordinate topLeftCoordinate, Coordinate bottomRightCoordinate)
+        {
+            if (topLeftCoordinate.X > bottomRightCoordinate.X && topLeftCoordinate.Y > bottomRightCoordinate.Y)
+            {
+                throw new Exception("Invalid Input");
+            }  
+        }
        
         private char[,] InitalizeCharMap()
         {
@@ -63,10 +66,12 @@ namespace CAB201_Assignment.ObstacleMap
             Console.WriteLine(obstacleList);
             foreach (Obstacle obstacle in obstacleList)
             {
-                List<Node> nodes = obstacle.GetNode(TopLeftCell, BottomRightCell);
+                List<Node> nodes = obstacle.GetNodes(bounds);
                 foreach (Node node in nodes)
                 {
+                    Console.WriteLine($"{node.X}, {node.Y}");
                     markerMap[node.X, node.Y] = node.Marker;
+                    Console.WriteLine("Marker Type: " + markerMap[node.X, node.Y]);
                 }
             }
 
@@ -75,7 +80,8 @@ namespace CAB201_Assignment.ObstacleMap
 
         private char[,] CreateEmptyCharMap()
         {
-            return new char[BottomRightCell.X, BottomRightCell.Y];
+            Console.WriteLine($"{bounds.TopLeftCoordinate.X}, {bounds.BottomRightCoordinate.Y}");
+            return new char[bounds.BottomRightCoordinate.X, bounds.BottomRightCoordinate.Y];
         }
     }
 }

@@ -1,39 +1,101 @@
 ﻿using CAB201_Assignment.Obstacles.Nodes;
-using CAB201_Assignment.Obstacles.Pathing;
+using Obstacles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CAB201_Assignment.ObstacleMap
 {
+    interface IPathfinding
+    {
+        List<List<Node>> GenerateMap();
+    }
     public class PathFinding
     {
-        NodeMap _nodeMap;
-        StartNode _startNode;
-        EndNode _endNode;
+        public NodeMap NodeMap;
+        private Node StartNode;
+        private Node EndNode;
         public PathFinding(NodeMap nodeMap)
         {
-            _nodeMap = nodeMap;
+            NodeMap = nodeMap;
+            StartNode = nodeMap.GetStartNode();
+            EndNode = nodeMap.GetEndNode();
+            ValidateNodeMap();
+        }
+
+        private void ValidateNodeMap() 
+        {
+            // If it can't get these nodes an Exception will erupt.
+            NodeMap.GetStartNode();
+            NodeMap.GetEndNode();
         }
 
         public void FindSafePath()
         {
-
             throw new NotImplementedException();
         }
 
-        public List<List<Node>> GenerateMap()
+        public void GenerateMap()
         {
-            List<List<Node>> nodeMap = new List<List<Node>>();
             Bounds bounds = DynamicallyCreateBounds();
+            foreach (Obstacle obstacle in NodeMap.GetObstacleList())
+            {
+                if (obstacle.IsIgnored) { continue; }
+                List<Node> nodes = obstacle.GetNodes(bounds);
+                foreach (Node node in nodes)
+                {
+                    NodeMap.AddNode(node);
+                }
+            }
         }
 
         private Bounds DynamicallyCreateBounds()
         {
-            List<List<Node>> nodeMap = new List<List<Node>>();
+            Coordinate topLeftCoordinate = CreateTopLeft();
+            Coordinate bottomRightCoordinate = CreateBottomRight();
+            return new Bounds(topLeftCoordinate, bottomRightCoordinate);
+        }
+
+        private Coordinate CreateTopLeft()
+        {
+            Coordinate topLeft = new Coordinate(StartNode.X, StartNode.Y);
+            foreach (Obstacle obstacle in NodeMap.GetObstacleList())
+            {
+                Bounds bounds = obstacle.GetBounds();
+                if (bounds.TopLeftCoordinate.X < topLeft.X)
+                {
+                    topLeft.X = bounds.TopLeftCoordinate.X;
+                }
+                if (bounds.TopLeftCoordinate.Y < topLeft.Y)
+                {
+                    topLeft.Y = bounds.TopLeftCoordinate.Y;
+                }
+            }
+
+            return topLeft;
+        }
+
+        private Coordinate CreateBottomRight()
+        {
+            Coordinate bottomRight = new Coordinate(EndNode.X, EndNode.Y);
+            foreach (Obstacle obstacle in NodeMap.GetObstacleList())
+            {
+                Bounds bounds = obstacle.GetBounds();
+                if (bounds.TopLeftCoordinate.X < bottomRight.X)
+                {
+                    bottomRight.X = bounds.TopLeftCoordinate.X;
+                }
+                if (bounds.TopLeftCoordinate.Y < bottomRight.Y)
+                {
+                    bottomRight.Y = bounds.TopLeftCoordinate.Y;
+                }
+            }
+
+            return bottomRight;
         }
 
         public void ShowSafeDirections()
@@ -45,90 +107,5 @@ namespace CAB201_Assignment.ObstacleMap
         {
             throw new NotImplementedException();
         }
-/*
-        public Stack<Node> FindPath(NodeMap nodeMap)
-        {
-            protected List<List<Node>> _nodeMap = new List<List<Node>>();
-            Stack<Node> Path = new Stack<Node>();
-            PriorityQueue<Node, float> OpenList = new PriorityQueue<Node, float>();
-            List<Node> ClosedList = new List<Node>();
-            List<Node> adjacencies;
-            Node current = StartNode;
-
-            // add start node to Open List
-            OpenList.Enqueue(StartNode, StartNode.F);
-
-            while (OpenList.Count != 0 && !ClosedList.Exists(x => x.Position == end.Position))
-            {
-                current = OpenList.Dequeue();
-                ClosedList.Add(current);
-                adjacencies = GetAdjacentNodes(current);
-
-                foreach (Node n in adjacencies)
-                {
-                    if (!ClosedList.Contains(n) && n.Solid)
-                    {
-                        bool isFound = false;
-                        foreach (var oLNode in OpenList.UnorderedItems)
-                        {
-                            if (oLNode.Element == n)
-                            {
-                                isFound = true;
-                            }
-                        }
-                        if (!isFound)
-                        {
-                            n.Parent = current;
-                            n.DistanceToTarget = Math.Abs(n.X - end.X) + Math.Abs(n.Y - end.Y);
-                            n.Cost = n.Weight + n.Parent.Cost;
-                            OpenList.Enqueue(n, n.F);
-                        }
-                    }
-                }
-            }
-
-            // construct path, if end was not closed return null
-            if (!ClosedList.Exists(x => x.Position == end.Position))
-            {
-                return null;
-            }
-
-            // if all good, return path
-            Node temp = ClosedList[ClosedList.IndexOf(current)];
-            if (temp == null) return null;
-            do
-            {
-                Path.Push(temp);
-                temp = temp.Parent;
-            } while (temp != start && temp != null);
-            return Path;
-        }
-
-        private List<Node> GetAdjacentNodes(Node n)
-        {
-            List<Node> temp = new List<Node>();
-
-            int row = (int)n.Position.Y;
-            int col = (int)n.Position.X;
-
-            if (row + 1 < GridRows)
-            {
-                temp.Add(Grid[col][row + 1]);
-            }
-            if (row - 1 >= 0)
-            {
-                temp.Add(Grid[col][row - 1]);
-            }
-            if (col - 1 >= 0)
-            {
-                temp.Add(Grid[col - 1][row]);
-            }
-            if (col + 1 < GridCols)
-            {
-                temp.Add(Grid[col + 1][row]);
-            }
-
-            return temp;
-        }*/
     }
 }

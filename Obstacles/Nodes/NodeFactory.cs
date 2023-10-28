@@ -52,6 +52,7 @@ namespace CAB201_Assignment.Obstacles.Nodes
         /// </usage>
         public NodeFactory(char marker)
         {
+            Console.WriteLine($"NodeFactory: {marker}");
             Marker = marker;
         }
 
