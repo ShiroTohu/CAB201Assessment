@@ -27,7 +27,7 @@ public class Sensor : Obstacle
         return true;
     }
 
-    public override List<Node> GetCoverage(Coordinate TopLeft, Coordinate TopRight)
+    public override List<Node> GetCoverage(Bounds bounds)
     {
         throw new NotImplementedException();
     }

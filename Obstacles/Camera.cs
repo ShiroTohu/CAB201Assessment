@@ -59,7 +59,7 @@ public class Camera : Obstacle
         return Coordinate.GetMaxAxis(axis1, axis2) - Coordinate.GetMinAxis(axis1, axis2);
     }
 
-    public override List<Node> GetCoverage(Coordinate TopLeft, Coordinate TopRight)
+    public override List<Node> GetCoverage(Bounds bounds)
     {
         throw new NotImplementedException();
     }
