@@ -24,7 +24,8 @@ namespace Util
 
         public static Coordinate PromptCoordinate(string prompt)
         {
-            return new Coordinate(PromptCoordinateArray(prompt));
+            int[] coordinateArray = PromptCoordinateArray(prompt);
+            return new Coordinate(coordinateArray[0], coordinateArray[1]);
         }
         public static int[] PromptCoordinateArray(string prompt)
         {
