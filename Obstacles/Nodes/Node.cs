@@ -1,33 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CAB201_Assignment.Obstacles.Nodes
 {
-    /// <summary>
-    /// Node is what is physically on the NodeMap. This means that this can encompas vision etc.
-    /// </summary>
     public class Node : Coordinate
     {
+        public Node? Parent { get; set; }
         public char Marker { get; }
+        public float DistanceToTarget; // H cost, the distance from the current node to the goal node.
+        public float Weight;
+        public float Cost; // G cost, the distance from the current node to the start node
+        public bool start = false;
+        public bool end = false;
 
-        public Node(Coordinate coordinate, char marker) : base(coordinate.X, coordinate.Y)
+        public float F // F Cost (G + H cost), it is also the most important cost
         {
-            Marker = marker;
+            get
+            {
+                if (DistanceToTarget != -1 && Cost != -1)
+                    return DistanceToTarget + Cost;
+                else
+                    return -1;
+            }
         }
+        public bool Walkable;
 
-        /// <inheritdoc/>
-        /// <param name="marker">The marker to display on the map.</param>
-        public Node(int x, int y, char marker) : base(x, y) 
+        public Node(Coordinate position, bool solid, char marker='.', float weight = 1) : base(position)
         {
-            Marker = marker;
-        }
-        /// <inheritdoc/>
-        /// <param name="marker">The marker to display on the map.</param>
-        public Node(string prompt, char marker) : base(prompt) 
-        {
+            Parent = null;
+            DistanceToTarget = -1;
+            Cost = 1;
+            Weight = weight;
+            Walkable = solid;
             Marker = marker;
         }
     }

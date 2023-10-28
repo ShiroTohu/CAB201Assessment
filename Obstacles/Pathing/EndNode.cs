@@ -2,16 +2,11 @@
 
 namespace CAB201_Assignment.Obstacles.Pathing
 {
-    public class EndNode : PathFindingNode
+    public class EndNode : Node
     {
-        public EndNode(Coordinate coordinate) : base(coordinate.X, coordinate.Y) { }
-
-        /// <inheritdoc/>
-        /// <param name="marker">The marker to display on the map.</param>
-        public EndNode(int x, int y) : base(x, y) { }
-
-        /// <inheritdoc/>
-        /// <param name="marker">The marker to display on the map.</param>
-        public EndNode(string prompt) : base(prompt) { }
+        public EndNode(Coordinate position, bool solid, char marker = '.', float weight = 1) : base(position, solid, marker, weight)
+        {
+            end = true;
+        }
     }
 }

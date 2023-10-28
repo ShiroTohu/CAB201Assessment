@@ -1,4 +1,5 @@
-﻿using System.Xml.Schema;
+﻿using System.Numerics;
+using System.Xml.Schema;
 using Util;
 
 namespace CAB201_Assignment.Obstacles.Nodes
@@ -18,7 +19,7 @@ namespace CAB201_Assignment.Obstacles.Nodes
     {
         public int X { get; }
         public int Y { get; }
-        public int[] Position { get => new int[] { X, Y }; }
+        public virtual int[] Position { get => new int[] { X, Y }; }
 
         /// <summary>
         /// Node Constructor where the x and y coordinates are specified by the parameters.
@@ -29,10 +30,11 @@ namespace CAB201_Assignment.Obstacles.Nodes
             Y = y;
         }
 
-        public Coordinate(int[] postion)
+        // For those inheriting from Coordinate
+        protected Coordinate(Coordinate coordinate)
         {
-            X = postion[0];
-            Y = postion[1];
+            X = coordinate.X;
+            Y = coordinate.Y;
         }
 
         /// <summary>

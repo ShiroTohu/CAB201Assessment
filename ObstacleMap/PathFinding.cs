@@ -1,16 +1,23 @@
-﻿using CAB201_Assignment.Obstacles.Pathing;
+﻿using CAB201_Assignment.Obstacles.Nodes;
+using CAB201_Assignment.Obstacles.Pathing;
 using Obstacles;
 using System.Drawing;
 
 namespace CAB201_Assignment.ObstacleMap
 {
-    public class PathFinding
+    public class PathFinding : AStar
     {
         private static Type[] _ignore = new Type[] { typeof(Camera) };
+        private NodeMap _nodeMap;
+        private Bounds _mapBounds;
+        private StartNode _startNode;
+        private EndNode _endNode;
         public PathFinding(NodeMap nodeMap)
         {
-            StartNode startNode = new StartNode("Enter your current location (X,Y):");
-            EndNode endNode = new EndNode("Enter the location of your objective (X,Y):");
+            _nodeMap = nodeMap;
+            _startNode = new StartNode("Enter your current location (X,Y):");
+            _endNode = new EndNode("Enter the location of your objective (X,Y):");
+            _mapBounds = DefineBounds();
         }
 
         private void FindSafePath()
@@ -18,9 +25,11 @@ namespace CAB201_Assignment.ObstacleMap
             throw new NotImplementedException();
         }
 
-        private void DefineBounds()
+        private Bounds DefineBounds()
         {
-            throw new NotImplementedException();
+            Coordinate topLeftCoordinate = new Coordinate(0, 0);
+            Coordinate bottomRightCoordiante = new Coordinate(0, 0);
+            return new Bounds(topLeftCoordinate, bottomRightCoordiante);
         }
     }
 
