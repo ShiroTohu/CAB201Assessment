@@ -9,11 +9,11 @@ namespace CAB201_Assignment.Obstacles.Nodes
 {
     public class Node : Coordinate
     {
-        public Node? Parent { get; private set; }
-        public char Marker { get; }
-        public float DistanceToTarget { get; } // H cost, the distance from the current node to the goal node.
-        public float Weight { get; }
-        public float Cost { get; } // G cost, the distance from the current node to the start node
+        public Node? Parent { get; set; }
+        public char Marker { get; set; }
+        public float DistanceToTarget { get; set; } // H cost, the distance from the current node to the goal node.
+        public float Weight { get; set; }
+        public float Cost { get; set; } // G cost, the distance from the current node to the start node
         public bool Start = false;
         public bool End = false;
         public bool Solid;

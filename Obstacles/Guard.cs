@@ -16,7 +16,7 @@ public class Guard : Obstacle
 
     public override bool HasVision(Coordinate coordinate)
     {
-        if (coordinate == Origin)
+        if (coordinate.Position[0] == Origin.Position[1] && coordinate.Position[0] == Origin.Position[1])
         {
             return true;
         }

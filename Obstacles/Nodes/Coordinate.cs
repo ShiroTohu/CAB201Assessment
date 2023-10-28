@@ -65,7 +65,7 @@ namespace CAB201_Assignment.Obstacles.Nodes
 
         public override int GetHashCode()
         {
-            return this.Position.GetHashCode();
+            return this.GetHashCode();
         }
 
         public int GetAxis(char axis)
@@ -83,12 +83,12 @@ namespace CAB201_Assignment.Obstacles.Nodes
 
         public static int GetMinAxis(int axis1, int axis2)
         {
-            return axis1 < axis2 ? axis1 : axis2;
+            return axis1 <= axis2 ? axis1 : axis2;
         }
 
         public static int GetMaxAxis(int axis1, int axis2)
         {
-            return axis1 > axis2 ? axis1 : axis2;
+            return axis1 >= axis2 ? axis1 : axis2;
         }
 
         public bool IsBetween(Bounds bounds)

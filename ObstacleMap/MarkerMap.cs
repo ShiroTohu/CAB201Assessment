@@ -32,9 +32,9 @@ namespace CAB201_Assignment.ObstacleMap
 
         public void DisplayObstacleMap()
         {
-            for (int row = 0; row < _charMap.GetLength(0); row++)
+            for (int row = 0; row < _charMap.GetLength(0) - 1; row++)
             {
-                for (int column = 0; column < _charMap.GetLength(1); column++)
+                for (int column = 0; column < _charMap.GetLength(1) - 1; column++)
                 {
                     string marker = Char.ToString(_charMap[row, column]);
                     if (marker == "\0")
@@ -62,17 +62,10 @@ namespace CAB201_Assignment.ObstacleMap
         private char[,] InitalizeCharMap()
         {
             char[,] markerMap = CreateEmptyCharMap();
-            List<Obstacle> obstacleList = NodeMap.GetObstacleList();
-            Console.WriteLine(obstacleList);
-            foreach (Obstacle obstacle in obstacleList)
+            foreach (Node node in NodeMap.GetNodeList(bounds))
             {
-                List<Node> nodes = obstacle.GetNodes(bounds);
-                foreach (Node node in nodes)
-                {
-                    Console.WriteLine($"{node.X}, {node.Y}");
-                    markerMap[node.X, node.Y] = node.Marker;
-                    Console.WriteLine("Marker Type: " + markerMap[node.X, node.Y]);
-                }
+                Console.WriteLine($"Array Bounds {node.X}, {node.Y}");
+                markerMap[node.X, node.Y] = node.Marker;
             }
 
             return markerMap;
@@ -80,8 +73,8 @@ namespace CAB201_Assignment.ObstacleMap
 
         private char[,] CreateEmptyCharMap()
         {
-            Console.WriteLine($"{bounds.TopLeftCoordinate.X}, {bounds.BottomRightCoordinate.Y}");
-            return new char[bounds.BottomRightCoordinate.X, bounds.BottomRightCoordinate.Y];
+            Console.WriteLine($"CharMap Dimensions: {bounds.BottomRightCoordinate.X}, {bounds.BottomRightCoordinate.Y}");
+            return new char[bounds.BottomRightCoordinate.X + 1, bounds.BottomRightCoordinate.Y + 1];
         }
     }
 }

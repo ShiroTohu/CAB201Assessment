@@ -22,17 +22,19 @@ public class Sensor : Obstacle
         double position = Math.Sqrt(Math.Pow(coordinate.X - Origin.X, 2) + Math.Pow(coordinate.Y - Origin.Y, 2));
         if ( Range >  position )
         {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     public override List<Node> GetNodes(Bounds bounds) 
     {
         List<Node> nodes = new List<Node>();
-        for (int X = Origin.X; X >= bounds.TopLeftCoordinate.X && X <= bounds.BottomRightCoordinate.X; X++)
+        Bounds sensorBounds = GetBounds();
+
+        for (int X = sensorBounds.TopLeftCoordinate.X; X >= bounds.TopLeftCoordinate.X && X <= bounds.BottomRightCoordinate.X; X++)
         {
-            for (int Y = Origin.Y; Y >= bounds.TopLeftCoordinate.Y && Y <= bounds.BottomRightCoordinate.Y; Y++)
+            for (int Y = sensorBounds.TopLeftCoordinate.Y; Y >= bounds.TopLeftCoordinate.Y && Y <= bounds.BottomRightCoordinate.Y; Y++)
             {
                 Coordinate coordinate = new Coordinate(X, Y);
                 if (HasVision(coordinate))
@@ -48,6 +50,8 @@ public class Sensor : Obstacle
     {
         Coordinate topLeft = new Coordinate(Origin.X - (int)Math.Ceiling(Range), Origin.Y - (int)Math.Ceiling(Range));
         Coordinate bottomRight = new Coordinate(Origin.X + (int)Math.Ceiling(Range), Origin.Y + (int)Math.Ceiling(Range));
+        Console.WriteLine($"{topLeft.X}, {topLeft.Y}");
+        Console.WriteLine($"{bottomRight.X}, {bottomRight.Y}");
         return new Bounds(topLeft, bottomRight);
     }
 }

@@ -5,6 +5,7 @@ using System;
 using System.Dynamic;
 using System.Text;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 namespace Obstacles;
 public class Fence : Obstacle {
@@ -33,6 +34,8 @@ public class Fence : Obstacle {
         Origin = new Coordinate("Enter the location where the fence starts(X, Y):");
         End = new Coordinate("Enter the location where the fence ends (X,Y):");
         ValidateObstacleOrientation();
+        GetNodes(new Bounds(new Coordinate(0,0), new Coordinate(7, 7)));
+        Console.WriteLine("balls");
     }
 
     private bool ValidateObstacleOrientation()
@@ -74,14 +77,20 @@ public class Fence : Obstacle {
     {
         List<Node> nodes = new List<Node>();
         char differingAxis = GetDifferingAxis();
+        Console.WriteLine(differingAxis); //correct
 
         int differingOrigin = Origin.GetAxis(differingAxis);
         int differingEnd = End.GetAxis(differingAxis);
+        Console.WriteLine($"{differingOrigin}, {differingEnd}"); // correct
 
-        int minAxis = Coordinate.GetMinAxis(differingAxis, differingEnd);
+        int minAxis = Coordinate.GetMinAxis(differingOrigin, differingEnd);
+        Console.WriteLine(minAxis);
         int maxAxis = Coordinate.GetMaxAxis(differingOrigin, differingEnd);
+        Console.WriteLine(maxAxis);
 
-        for (int range = minAxis; range < maxAxis; range++)
+        Console.Write(minAxis <= maxAxis);
+
+        for (int range = minAxis; range <= maxAxis; range++)
         {
             Coordinate coordinate;
             
@@ -89,18 +98,16 @@ public class Fence : Obstacle {
             {
                 case 'x':
                     coordinate = new Coordinate(range, Origin.Y);
-                    Console.WriteLine($"{Origin.Y}, {range}");
+                    nodes.Add(CreateNode(coordinate));
                     break;
                 case 'y':
                     coordinate = new Coordinate(Origin.X, range);
-                    Console.WriteLine($"{range}, {Origin.Y}");
+                    Console.WriteLine($"bafdfbfd {Origin.X} {range}");
+                    nodes.Add(CreateNode(coordinate));
                     break;
                 default:
-                    throw new Exception();
-                    
+                    throw new Exception();    
             }
-            
-            nodes.Add(CreateNode(coordinate));
         }
         return nodes;
     }

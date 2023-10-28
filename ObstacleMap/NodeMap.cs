@@ -16,7 +16,7 @@ namespace CAB201_Assignment.ObstacleMap
         void AddObstacle(Obstacle obstacle);
         void AddNode(Node node);
         List<Obstacle> GetObstacleList();
-        List<List<Node>> GetNodeMatrix();
+        List<Node> GetNodeList(Bounds bounds);
 
         Node GetStartNode();
         Node GetEndNode();
@@ -99,8 +99,31 @@ namespace CAB201_Assignment.ObstacleMap
             nodeMatrix[node.X][node.Y] = node;
         }
 
-        public List<List<Node>> GetNodeMatrix()
+        public List<Node> GetNodeList(Bounds bounds)
         {
+            List<Node> nodeList = new List<Node>();
+            foreach (Obstacle obstacle in GetObstacleList())
+            {
+                List<Node> nodes = obstacle.GetNodes(bounds);
+                foreach (Node node in nodes)
+                {
+                    Console.WriteLine($"Array Bounds {node.X}, {node.Y}");
+                    nodeList.Add(node);
+                }
+            }
+
+            return nodeList;
+        }
+
+        public List<List<Node>> GetNodeMatrix(Bounds bounds)
+        {
+            List<List<Node>> nodeMatrix = new List<List<Node>>();
+            List<Node> nodeList = GetNodeList(bounds);
+            foreach(Node node in nodeList)
+            {
+                nodeMatrix[node.X][node.Y] = node;
+            }
+
             return nodeMatrix;
         }
     }

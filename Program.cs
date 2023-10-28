@@ -52,9 +52,6 @@ class Program
             case Sensor.Marker:
                 _nodeMap.AddObstacle(new Sensor());
                 break;
-            /*case MineField.Marker:
-                _nodeMap.AddObstacle(new MineField());
-                break;*/
             case 'd':
                 _nodeMap.ShowSafeDirections();
                 break;
