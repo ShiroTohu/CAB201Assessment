@@ -1,5 +1,4 @@
-﻿using CAB201_Assignment.Utils;
-using CAB201_Assignment.ObstacleMap;
+﻿using CAB201_Assignment.Obstacles.Nodes;
 
 /**
  * pattern
@@ -10,27 +9,32 @@ using CAB201_Assignment.ObstacleMap;
 
 namespace Obstacles
 {
-    class MineField : Obstacle
+    public class MineField : Obstacle
     {
-        private char _marker = 'x';
-        public override char Marker
+        public new const char Marker = 'b';
+        // in a perfect world and to save memory we want all instances of the class to implement the same factory instance
+        public override Coordinate Origin { get; }
+
+        public MineField()
         {
-            get
-            {
-                return _marker;
-            }
-        }
-        protected override void InitializeObstacle()
-        {
-            Util.PromptCoordinates("Balls");
+            Origin = new Coordinate("Enter the MineField's location (X,Y):");
         }
 
-        public override List<int[]> GetVision(CharMap charMap)
+        public override bool HasVision(Coordinate coordinate)
         {
-            // Originally it was int[,] but in reality the size of the vision would be unknown.
-            // Especially for more complex objects.
-            List<int[]> vision = new List<int[]>() { _coordinates };
-            return vision;
+            if (coordinate == Origin)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override List<Node> GetCoverage(Coordinate TopLeft, Coordinate TopRight)
+        {
+            throw new NotImplementedException();
         }
     }
 }

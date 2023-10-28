@@ -1,23 +1,19 @@
 ﻿using CAB201_Assignment.Obstacles.Nodes;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CAB201_Assignment.Obstacles.Pathing
 {
-    interface IPathFindingNode
+    public abstract class PathFindingNode : Coordinate 
     {
-        Coordinate Coordinate { get; }
-        bool IsIntercepting(Coordinate coordinate);
-    }
+        public PathFindingNode(Coordinate coordinate) : base(coordinate.X, coordinate.Y) { }
 
-    public abstract class PathFindingNode : IPathFindingNode 
-    {
-        protected abstract Coordinate Coordinate { get; }
-        public abstract bool IsIntercepting(Coordinate coordinate);
-
-        public PathFindingNode
+        /// <inheritdoc/>
+        /// <param name="marker">The marker to display on the map.</param>
+        public PathFindingNode(int x, int y) : base(x, y) { }
+        
+        /// <inheritdoc/>
+        /// <param name="marker">The marker to display on the map.</param>
+        public PathFindingNode(string prompt) : base(prompt) { }
     }
 }

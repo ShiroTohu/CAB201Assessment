@@ -16,15 +16,7 @@ namespace Obstacles
             : base(message, inner) { }
     }
 
-    interface IObstacle
-    {
-        Coordinate Origin { get; }
-        int X { get; }
-        int Y { get; }
-        Node getNode(Coordinate coordinate);
-    }
-
-    public abstract class Obstacle : NodeFactory, IObstacle
+    public abstract class Obstacle : NodeFactory
     {
         public abstract Coordinate Origin { get; }
         public static char Marker;
@@ -42,9 +34,9 @@ namespace Obstacles
         /// </summary>
         /// <param name="coordinate"></param>
         /// <returns></returns>
-        protected abstract bool HasVision(Coordinate coordinate);
+        public abstract bool HasVision(Coordinate coordinate);
 
-        public Node getNode(Coordinate coordinate)
+        public Node GetNode(Coordinate coordinate)
         {
             if (HasVision(coordinate))
             {
@@ -55,5 +47,7 @@ namespace Obstacles
                 throw new Exception();
             }
         }
+
+        public abstract List<Node> GetCoverage(Coordinate TopLeft, Coordinate TopRight);
     }
 }

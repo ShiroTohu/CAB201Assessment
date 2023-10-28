@@ -1,14 +1,70 @@
-﻿using Obstacles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CAB201_Assignment.Obstacles.Nodes;
+using Obstacles;
+using System.Net;
+using Util;
 
 namespace CAB201_Assignment.ObstacleMap
 {
-    public class NodeMap
+    public class NodeMap : ObstacleFactory
     {
-        public List<Obstacle> Obstales = new List<Obstacle>();
+        private List<Obstacle> _obstacles = new List<Obstacle>();
+
+        public void ShowSafeDirections()
+        {
+            throw new NotImplementedException();
+            /*Coordinate coordinate = new Coordinate(Input.PromptCoordinates("Enter your current location (X,Y):"));
+            foreach (Obstacle obstacle in _obstacles)
+            {
+                if (obstacle.HasVision(coordinate)) {
+                    Console.WriteLine("Agent, your location is compromised. Abort mission.");
+                }
+                else if (!AdjacentNodesAreEmpty(coordinate))
+                {
+
+                }
+            }*/
+        }
+
+        public void DisplayObstacleMap()
+        {
+            new MarkerMap(this);
+        }
+
+        public void FindSafePath()
+        {
+            new PathFinding(this);
+        }
+
+        public List<Obstacle> GetObstacleList()
+        {
+            return _obstacles;
+        }
+
+        public void AddObstacle(char type)
+        {
+            switch (type)
+            {
+                case Guard.Marker:
+                     _obstacles.Add(CreateGuard());
+                    Console.WriteLine("Guard has been added to obstacleList");
+                    break;
+                case Fence.Marker:
+                    _obstacles.Add(CreateFence());
+                    break;
+                case Camera.Marker:
+                    _obstacles.Add(CreateCamera());
+                    break;
+                case Sensor.Marker:
+                    _obstacles.Add(CreateSensor());
+                    break;
+                case MineField.Marker:
+                    _obstacles.Add(CreateMineField());
+                    break;
+                default:
+                    throw new ObstacleNotFound();
+            }
+        }
     }
 }
+
+

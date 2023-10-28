@@ -7,9 +7,9 @@ using System.Text;
 using System.Runtime.CompilerServices;
 
 namespace Obstacles;
-class Fence : Obstacle {
+public class Fence : Obstacle {
 
-    public new const char Marker = 'g';
+    public new const char Marker = 'f';
     public override Coordinate Origin { get; }
     public Coordinate End { get; }
     private char DifferingAxis
@@ -46,14 +46,14 @@ class Fence : Obstacle {
         }
     }
 
-    protected override bool HasVision(Coordinate coordinate)
+    public override bool HasVision(Coordinate coordinate)
     {
         switch(DifferingAxis)
         {
             case 'x':
-                return Axis.IsBetweenRange(coordinate.X, GetMinAxis('x'), GetMaxAxis('x'));
+                return IsBetweenRange(coordinate.X, GetMinAxis('x'), GetMaxAxis('x'));
             case 'y':
-                return Axis.IsBetweenRange(coordinate.X, GetMinAxis('y'), GetMaxAxis('y'));
+                return IsBetweenRange(coordinate.X, GetMinAxis('y'), GetMaxAxis('y'));
             default:
                 return false;
         }
@@ -62,6 +62,37 @@ class Fence : Obstacle {
     private static bool IsBetweenRange(int value, int min, int max)
     {
         return value < min && value > max;
+    }
+
+    public override List<Node> GetCoverage(Coordinate TopLeft, Coordinate TopRight)
+    {
+        List<Node> nodes = new List<Node>();
+        char differingAxis = GetDifferingAxis();
+
+        int differingOrigin = Origin.GetAxis(differingAxis);
+        int differingEnd = End.GetAxis(differingAxis);
+
+        int minAxis = Coordinate.GetMinAxis(differingAxis, differingEnd);
+        int maxAxis = Coordinate.GetMaxAxis(differingOrigin, differingEnd);
+
+        for (int range = minAxis; range < maxAxis; range++)
+        {
+            Coordinate coordinate;
+            switch(differingAxis)
+            {
+                case 'x':
+                    coordinate = new Coordinate(range, Origin.Y);
+                    break;
+                case 'y':
+                    coordinate = new Coordinate(Origin.X, range);
+                    break;
+                default:
+                    throw new Exception();
+            }
+            
+            nodes.Add(CreateNode(coordinate));
+        }
+        return nodes;
     }
 
     private int GetMinAxis(char axis)

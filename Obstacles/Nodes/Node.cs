@@ -11,7 +11,7 @@ namespace CAB201_Assignment.Obstacles.Nodes
     /// </summary>
     public class Node : Coordinate
     {
-        char Marker { get; }
+        public char Marker { get; }
 
         public Node(Coordinate coordinate, char marker) : base(coordinate.X, coordinate.Y)
         {

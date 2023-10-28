@@ -1,17 +1,30 @@
-﻿using Obstacles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-
-using CAB201_Assignment.Utils;
-using System.Collections;
+﻿using CAB201_Assignment.Obstacles.Pathing;
+using Obstacles;
+using System.Drawing;
 
 namespace CAB201_Assignment.ObstacleMap
 {
-    [Serializable]
+    public class PathFinding
+    {
+        private static Type[] _ignore = new Type[] { typeof(Camera) };
+        public PathFinding(NodeMap nodeMap)
+        {
+            StartNode startNode = new StartNode("Enter your current location (X,Y):");
+            EndNode endNode = new EndNode("Enter the location of your objective (X,Y):");
+        }
+
+        private void FindSafePath()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void DefineBounds()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    /*[Serializable]
     public class PathNotFoundException : Exception
     {
         public PathNotFoundException() { }
@@ -45,6 +58,11 @@ namespace CAB201_Assignment.ObstacleMap
             {
                 Console.WriteLine("No path found.");
             }
+        }
+
+        public void FindSafePath()
+        {
+            throw new NotImplementedException();
         }
 
         private int[,] CreateIntMap(Map map, Point start, Point goal)
@@ -153,6 +171,6 @@ namespace CAB201_Assignment.ObstacleMap
         {
             return x >= 0 && x < rows && y >= 0 && y < cols;
         }
-    }
+    }*/
 }
 

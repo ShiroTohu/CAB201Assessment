@@ -16,53 +16,30 @@ public class ObstacleNotFound : Exception
         : base(message, inner) { }
 }
 
-interface IObstacleFactory
+public class ObstacleFactory
 {
-    Obstacle CreateObstacle(string type);
-}
-
-class ObstacleFactory : IObstacleFactory
-{
-    public Obstacle CreateObstacle(char type)
+    protected Guard CreateGuard()
     {
-        switch (type)
-        {
-            case Guard.Marker:
-                return CreateGuard();
-            case Fence.Marker:
-                return CreateFence();
-            case Camera.Marker:
-                return CreateCamera();
-            case Sensor.Marker:
-                return CreateSensor();
-            case MineField.Marker:
-                return CreateMineField();
-            default:
-                throw new ObstacleNotFound();
-        }
-    }
-
-    private Guard CreateGuard()
-    {
+        Console.WriteLine("Guard has been created");
         return new Guard();
     }
 
-    private Fence CreateFence()
+    protected Fence CreateFence()
     {
         return new Fence();
     }
 
-    private Camera CreateCamera()
+    protected Camera CreateCamera()
     {
         return new Camera();
     }
 
-    private Sensor CreateSensor()
+    protected Sensor CreateSensor()
     {
         return new Sensor();
     }
 
-    private MineField CreateMineField()
+    protected MineField CreateMineField()
     {
         return new MineField();
     }
