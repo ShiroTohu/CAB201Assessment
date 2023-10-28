@@ -4,6 +4,7 @@ using CAB201_Assignment.Obstacles.Nodes;
 namespace Obstacles;
 public class Guard : Obstacle
 {
+    public new const bool Ignored = false;
     public new const char Marker = 'g';
     // in a perfect world and to save memory we want all instances of the class to implement the same factory instance
     public override Coordinate Origin { get; }
