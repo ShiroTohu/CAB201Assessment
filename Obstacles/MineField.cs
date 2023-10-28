@@ -33,9 +33,16 @@ namespace Obstacles
             }
         }
 
-        public override List<Node> GetCoverage(Bounds bounds)
+        public override Bounds GetBounds()
         {
-            throw new NotImplementedException();
+            if (IsIgnored)
+            {
+                throw new Exception("IsIgnored field set to true");
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

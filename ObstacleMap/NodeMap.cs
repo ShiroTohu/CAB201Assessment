@@ -9,7 +9,7 @@ namespace CAB201_Assignment.ObstacleMap
     {
         List<List<Node>> nodeMap = new List<List<Node>>();
         List<Obstacle> obstacleList = new List<Obstacle>();
-        Bounds Bounds;
+        public Bounds Bounds;
 
         public NodeMap()
         {
@@ -30,7 +30,10 @@ namespace CAB201_Assignment.ObstacleMap
         {
             foreach (Obstacle obstacle in obstacleList)
             {
-                if 
+                if (!obstacle.IsIgnored)
+                {
+                    obstacle.GetCoverage();
+                } 
             }
         }
 

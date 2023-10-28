@@ -27,8 +27,11 @@ public class Sensor : Obstacle
         return true;
     }
 
-    public override List<Node> GetCoverage(Bounds bounds)
+    public override Bounds GetBounds()
     {
-        throw new NotImplementedException();
+
+        Coordinate topLeft = new Coordinate(Origin.X - (int) Math.Ceiling(Range), Origin.Y - (int) Math.Ceiling(Range));
+        Coordinate bottomRight = new Coordinate(Origin.X + (int)Math.Ceiling(Range), Origin.Y + (int)Math.Ceiling(Range));
+        return new Bounds(topLeft, bottomRight);
     }
 }

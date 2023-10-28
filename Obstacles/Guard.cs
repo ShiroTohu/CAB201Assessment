@@ -26,10 +26,15 @@ public class Guard : Obstacle
         }
     }
 
-    public override List<Node> GetCoverage(Bounds bounds)
+    public override Bounds GetBounds()
+    {
+        return new Bounds(Origin, Origin);
+    }
+
+    public List<Node> GetNodes(NodeMap nodeMap)
     {
         List<Node> nodes = new List<Node>();
-        if (Origin.IsBetween(TopLeft, TopRight))
+        if (Origin.IsBetween(nodeMap.Bounds))
         {
             Node origin = CreateNode(Origin);
             nodes.Add(origin);

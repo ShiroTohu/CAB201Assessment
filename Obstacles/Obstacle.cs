@@ -32,7 +32,7 @@ namespace Obstacles
     {
         public abstract Coordinate Origin { get; }
         public static char Marker;
-        public static bool IsIgnored;
+        public bool IsIgnored;
         public int X { get => Origin.X; }
         public int Y { get => Origin.Y; }
         public Obstacle() : base(Marker) { }
@@ -61,6 +61,6 @@ namespace Obstacles
             }
         }
 
-        public abstract List<Node> GetCoverage(Bounds bounds);
+        public abstract Bounds GetBounds();
     }
 }
