@@ -1,17 +1,5 @@
 ﻿using CAB201_Assignment.Obstacles.Nodes;
 using Obstacles;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Net;
-using System.Net.Http.Headers;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using Util;
 
 namespace CAB201_Assignment.ObstacleMap
 {
@@ -26,22 +14,22 @@ namespace CAB201_Assignment.ObstacleMap
         Bounds bounds;
         Node StartNode;
         Node EndNode;
-        List<List<Node>> Grid;
+        Node[,] Grid;
         int Rows
         {
-            get { return Grid[0].Count; }
+            get { return Grid.GetLength(0) - 1; }
         }
 
         int Columns
         {
-            get { return Grid[1].Count; }
+            get { return Grid.GetLength(1) - 1; }
         }
 
         public PathFinding(NodeMap nodeMap)
         {
             NodeMap = nodeMap;
             StartNode = new Node("Enter your current location (X,Y):", false).SetAsStart();
-            EndNode = new Node("Enter the location of your objective (X,Y):", false).SetAsEnd();
+            EndNode = new Node("Enter the location of the mission objective (X,Y):", false).SetAsEnd();
             bounds = DynamicallyCreateBounds();
             Grid = nodeMap.GetNodeMatrix(bounds);
         }
@@ -166,167 +154,22 @@ namespace CAB201_Assignment.ObstacleMap
 
             if (row + 1 < Rows)
             {
-                AdjacentNodes.Add(Grid[col][row + 1]);
+                AdjacentNodes.Add(Grid[col, row + 1]);
             }
             if (row - 1 >= 0)
             {
-                AdjacentNodes.Add(Grid[col][row - 1]);
+                AdjacentNodes.Add(Grid[col, row - 1]);
             }
             if (col - 1 >= 0)
             {
-                AdjacentNodes.Add(Grid[col - 1][row]);
+                AdjacentNodes.Add(Grid[col - 1, row]);
             }
             if (col + 1 < Columns)
             {
-                AdjacentNodes.Add(Grid[col + 1][row]);
+                AdjacentNodes.Add(Grid[col + 1, row]);
             }
 
             return AdjacentNodes;
         }
     }
-
-    /*public class PathFinding
-    {
-
-        public NodeMap NodeMap;
-        private Node? StartNode;
-        private Node? EndNode;
-        private Node? CurrentNode;
-        private bool GoalReached;
-        private List<Node> OpenList;
-        private List<Node> ClosedList;
-
-
-        public PathFinding(NodeMap nodeMap)
-        {
-            NodeMap = nodeMap;
-        }
-
-        private void ValidateNodeMap() 
-        {
-            // If it can't get these nodes an Exception will erupt.
-            NodeMap.GetStartNode();
-            NodeMap.GetEndNode();
-        }
-
-        public void FindSafePath()
-        {
-            StartNode = NodeMap.GetStartNode();
-            EndNode = NodeMap.GetEndNode();
-            ValidateNodeMap();
-            GenerateMap();
-        }
-
-        private List<List<Node>> InitalizeNodeMap()
-        {
-            List<List<Node>> GridMap = new List<List<Node>>();
-            Bounds bounds = DynamicallyCreateBounds();
-            foreach (Obstacle obstacle in NodeMap.GetObstacleList())
-            {
-                List<Node> nodes = obstacle.GetNodes(bounds);
-                foreach (Node node in nodes)
-                {
-                    Console.WriteLine($"Array Bounds {node.X}, {node.Y}");
-                    GridMap[node.X][node.Y] = node;
-                }
-            }
-
-            return GridMap;
-        }
-
-        public Bounds GenerateBounds()
-        {
-            Bounds bounds = DynamicallyCreateBounds();
-            foreach (Obstacle obstacle in NodeMap.GetObstacleList())
-            {
-                if (obstacle.IsIgnored) { continue; }
-                List<Node> nodes = obstacle.GetNodes(bounds);
-                foreach (Node node in nodes)
-                {
-                    NodeMap.AddNode(node);
-                }
-            }
-            return bounds;
-        }
-
-        private Bounds DynamicallyCreateBounds()
-        {
-            Coordinate topLeftCoordinate = CreateTopLeft();
-            Coordinate bottomRightCoordinate = CreateBottomRight();
-            return new Bounds(topLeftCoordinate, bottomRightCoordinate);
-        }
-
-        private Coordinate CreateTopLeft()
-        {
-            Coordinate topLeft = new Coordinate(StartNode.X, StartNode.Y);
-            foreach (Obstacle obstacle in NodeMap.GetObstacleList())
-            {
-                Bounds bounds = obstacle.GetBounds();
-                if (bounds.TopLeftCoordinate.X < topLeft.X)
-                {
-                    topLeft.X = bounds.TopLeftCoordinate.X;
-                }
-                if (bounds.TopLeftCoordinate.Y < topLeft.Y)
-                {
-                    topLeft.Y = bounds.TopLeftCoordinate.Y;
-                }
-            }
-
-            return topLeft;
-        }
-
-        private Coordinate CreateBottomRight()
-        {
-            Coordinate bottomRight = new Coordinate(EndNode.X, EndNode.Y);
-            foreach (Obstacle obstacle in NodeMap.GetObstacleList())
-            {
-                Bounds bounds = obstacle.GetBounds();
-                if (bounds.TopLeftCoordinate.X < bottomRight.X)
-                {
-                    bottomRight.X = bounds.TopLeftCoordinate.X;
-                }
-                if (bounds.TopLeftCoordinate.Y < bottomRight.Y)
-                {
-                    bottomRight.Y = bounds.TopLeftCoordinate.Y;
-                }
-            }
-
-            return bottomRight;
-        }
-
-        public void ShowSafeDirections()
-        {
-            Console.WriteLine("Showing safe directions");
-            Coordinate coordinates = Input.PromptCoordinate("Enter your current location(X, Y):");
-            foreach (Obstacle obstacle in NodeMap.GetObstacleList())
-            {
-                if (obstacle.HasVision(coordinates))
-                {
-                    Console.WriteLine("Agent, your location is compromised. Abort mission.");
-                }
-            }
-        }
-
-        private void search()
-        {
-            if (GoalReached == false)
-            {
-                CurrentNode.SetAsClosed();
-                ClosedList.Add(CurrentNode);
-                OpenList.Remove(CurrentNode);
-
-                OpenNode([CurrentNode.X][CurrentNode.Y]);
-            }
-        }
-
-        private void OpenNode(Node node)
-        {
-            if (node.Open == false && node.Closed == false && node.Solid == false)
-            {
-                node.SetAsOpen();
-                node.Parent = CurrentNode;
-                OpenList.Add(node);
-            } 
-        }
-    }*/
 }

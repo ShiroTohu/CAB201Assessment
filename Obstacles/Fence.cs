@@ -35,7 +35,6 @@ public class Fence : Obstacle {
         End = new Coordinate("Enter the location where the fence ends (X,Y):");
         ValidateObstacleOrientation();
         GetNodes(new Bounds(new Coordinate(0,0), new Coordinate(7, 7)));
-        Console.WriteLine("balls");
     }
 
     private bool ValidateObstacleOrientation()
@@ -52,20 +51,22 @@ public class Fence : Obstacle {
 
     public override bool HasVision(Coordinate coordinate)
     {
-        switch(DifferingAxis)
+        switch (DifferingAxis)
         {
             case 'x':
-                return IsBetweenRange(coordinate.X, GetMinAxis('x'), GetMaxAxis('x'));
+                // Console.WriteLine($"X {coordinate.X} {coordinate.Y}, {GetMinAxis('x')},{GetMaxAxis('x')} {coordinate.Y == Origin.GetAxis(GetCommonAxis())}");
+                return IsBetweenRange(coordinate.X, GetMinAxis('x'), GetMaxAxis('x')) && coordinate.Y == Origin.GetAxis(GetCommonAxis());
             case 'y':
-                return IsBetweenRange(coordinate.X, GetMinAxis('y'), GetMaxAxis('y'));
+                // Console.WriteLine($"Y {coordinate.Y} {coordinate.Y}, {GetMinAxis('y')},{GetMaxAxis('y')} {coordinate.X == Origin.GetAxis(GetCommonAxis())}");
+                return IsBetweenRange(coordinate.Y, GetMinAxis('y'), GetMaxAxis('y')) && coordinate.X == Origin.GetAxis(GetCommonAxis());
             default:
-                return false;
+                throw new Exception();
         }
     }
 
     private static bool IsBetweenRange(int value, int min, int max)
     {
-        return value < min && value > max;
+        return value >= min && value <= max;
     }
 
     public override Bounds GetBounds()
@@ -76,19 +77,29 @@ public class Fence : Obstacle {
     public override List<Node> GetNodes(Bounds bounds)
     {
         List<Node> nodes = new List<Node>();
+        for (int X = bounds.TopLeftCoordinate.X; X >= bounds.TopLeftCoordinate.X && X <= bounds.BottomRightCoordinate.X; X++)
+        {
+            for (int Y = bounds.TopLeftCoordinate.Y; Y >= bounds.TopLeftCoordinate.Y && Y <= bounds.BottomRightCoordinate.Y; Y++)
+            {
+                Coordinate coordinate = new Coordinate(X, Y);
+                if (HasVision(coordinate))
+                {
+                    Node node = CreateNode(coordinate);
+                    nodes.Add(node);
+                }
+            }
+        }
+        return nodes;
+
+        /*List<Node> nodes = new List<Node>();
         char differingAxis = GetDifferingAxis();
-        Console.WriteLine(differingAxis); //correct
 
         int differingOrigin = Origin.GetAxis(differingAxis);
         int differingEnd = End.GetAxis(differingAxis);
-        Console.WriteLine($"{differingOrigin}, {differingEnd}"); // correct
 
         int minAxis = Coordinate.GetMinAxis(differingOrigin, differingEnd);
-        Console.WriteLine(minAxis);
+        // Console.WriteLine(minAxis);
         int maxAxis = Coordinate.GetMaxAxis(differingOrigin, differingEnd);
-        Console.WriteLine(maxAxis);
-
-        Console.Write(minAxis <= maxAxis);
 
         for (int range = minAxis; range <= maxAxis; range++)
         {
@@ -98,18 +109,18 @@ public class Fence : Obstacle {
             {
                 case 'x':
                     coordinate = new Coordinate(range, Origin.Y);
-                    nodes.Add(CreateNode(coordinate));
+                    Console.WriteLine($"{coordinate.X}, {coordinate.Y}");
+                    if (coordinate.IsBetween(bounds)) { nodes.Add(CreateNode(coordinate)); }
                     break;
                 case 'y':
                     coordinate = new Coordinate(Origin.X, range);
-                    Console.WriteLine($"bafdfbfd {Origin.X} {range}");
-                    nodes.Add(CreateNode(coordinate));
+                    if (coordinate.IsBetween(bounds)) { nodes.Add(CreateNode(coordinate)); }
                     break;
                 default:
                     throw new Exception();    
             }
         }
-        return nodes;
+        return nodes;*/
     }
 
     private int GetMinAxis(char axis)

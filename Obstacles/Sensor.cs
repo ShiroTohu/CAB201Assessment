@@ -30,11 +30,9 @@ public class Sensor : Obstacle
     public override List<Node> GetNodes(Bounds bounds) 
     {
         List<Node> nodes = new List<Node>();
-        Bounds sensorBounds = GetBounds();
-
-        for (int X = sensorBounds.TopLeftCoordinate.X; X >= bounds.TopLeftCoordinate.X && X <= bounds.BottomRightCoordinate.X; X++)
+        for (int X = bounds.TopLeftCoordinate.X; X >= bounds.TopLeftCoordinate.X && X <= bounds.BottomRightCoordinate.X; X++)
         {
-            for (int Y = sensorBounds.TopLeftCoordinate.Y; Y >= bounds.TopLeftCoordinate.Y && Y <= bounds.BottomRightCoordinate.Y; Y++)
+            for (int Y = bounds.TopLeftCoordinate.Y; Y >= bounds.TopLeftCoordinate.Y && Y <= bounds.BottomRightCoordinate.Y; Y++)
             {
                 Coordinate coordinate = new Coordinate(X, Y);
                 if (HasVision(coordinate))
@@ -50,8 +48,6 @@ public class Sensor : Obstacle
     {
         Coordinate topLeft = new Coordinate(Origin.X - (int)Math.Ceiling(Range), Origin.Y - (int)Math.Ceiling(Range));
         Coordinate bottomRight = new Coordinate(Origin.X + (int)Math.Ceiling(Range), Origin.Y + (int)Math.Ceiling(Range));
-        Console.WriteLine($"{topLeft.X}, {topLeft.Y}");
-        Console.WriteLine($"{bottomRight.X}, {bottomRight.Y}");
         return new Bounds(topLeft, bottomRight);
     }
 }

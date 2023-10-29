@@ -15,7 +15,7 @@ namespace CAB201_Assignment.Obstacles.Nodes
         {
             get
             {
-                return BottomRightCoordinate.X - TopLeftCoordinate.X;
+                return BottomRightCoordinate.Y - TopLeftCoordinate.Y;
             }
         }
 
@@ -23,7 +23,7 @@ namespace CAB201_Assignment.Obstacles.Nodes
         {
             get
             {
-                return BottomRightCoordinate.Y - TopLeftCoordinate.Y;
+                return BottomRightCoordinate.X - TopLeftCoordinate.X;
             }
         }
         public Bounds(Coordinate topLeftCoordinate, Coordinate bottomRightCoordinate)

@@ -16,7 +16,8 @@ public class Guard : Obstacle
 
     public override bool HasVision(Coordinate coordinate)
     {
-        if (coordinate.Position[0] == Origin.Position[1] && coordinate.Position[0] == Origin.Position[1])
+        /*Console.WriteLine($"{coordinate.Position[0]} == ${Origin.Position[1]} && ${coordinate.Position[0]} == ${Origin.Position[1]}");*/
+        if (coordinate.Position[0] == Origin.Position[0] && coordinate.Position[1] == Origin.Position[1])
         {
             return true;
         }
@@ -34,11 +35,25 @@ public class Guard : Obstacle
     public override List<Node> GetNodes(Bounds bounds)
     {
         List<Node> nodes = new List<Node>();
+        for (int X = bounds.TopLeftCoordinate.X; X >= bounds.TopLeftCoordinate.X && X <= bounds.BottomRightCoordinate.X; X++)
+        {
+            for (int Y = bounds.TopLeftCoordinate.Y; Y >= bounds.TopLeftCoordinate.Y && Y <= bounds.BottomRightCoordinate.Y; Y++)
+            {
+                Coordinate coordinate = new Coordinate(X, Y);
+                if (HasVision(coordinate))
+                {
+                    Node node = CreateNode(coordinate);
+                    nodes.Add(node);
+                }
+            }
+        }
+        return nodes;
+        /*List<Node> nodes = new List<Node>();
         if (Origin.IsBetween(bounds))
         {
             Node origin = CreateNode(Origin);
             nodes.Add(origin);
         }
-        return nodes;
+        return nodes;*/
     }
 }

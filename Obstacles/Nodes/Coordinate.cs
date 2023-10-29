@@ -97,5 +97,15 @@ namespace CAB201_Assignment.Obstacles.Nodes
             bool yIsValid = Y > bounds.TopLeftCoordinate.Y && Y < bounds.BottomRightCoordinate.Y;
             return (X > bounds.TopLeftCoordinate.X && X < bounds.BottomRightCoordinate.X);
         }
+
+        public int getRelativeX(Bounds bounds)
+        {
+            return X - bounds.TopLeftCoordinate.X;
+        }
+
+        public int getRelativeY(Bounds bounds)
+        {
+            return Y - bounds.TopLeftCoordinate.Y;
+        }
     }
 }

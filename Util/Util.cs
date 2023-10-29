@@ -3,6 +3,16 @@ using System.Globalization;
 
 namespace Util
 {
+    public class InvalidInput : Exception
+    {
+        public InvalidInput() { }
+
+        public InvalidInput(string message)
+            : base(message) { }
+
+        public InvalidInput(string message, Exception inner)
+            : base(message, inner) { }
+    }
     public class Input
     {
         /// <summary>
@@ -51,7 +61,7 @@ namespace Util
             string? input = Console.ReadLine();
             if (string.IsNullOrEmpty(input))
             {
-                throw new Exception();
+                throw new InvalidInput();
             }
             return input;
         }
@@ -71,7 +81,7 @@ namespace Util
             char[] inputCharArray = input.ToCharArray();
             if (inputCharArray.Length > 1 || inputCharArray.Length == 0)
             {
-                throw new Exception();
+                throw new InvalidInput();
             }
             return inputCharArray[0];
         }

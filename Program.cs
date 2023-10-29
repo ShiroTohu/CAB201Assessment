@@ -15,9 +15,16 @@ class Program
     {
         while (!loopCompleted)
         {
-            char input = DisplayPrompt();
-            CodeSelector(input);
-            if (input == 'x') { break; }
+            try
+            {
+                char input = DisplayPrompt();
+                CodeSelector(input);
+                if (input == 'x') { break; }
+            }
+            catch (InvalidInput)
+            {
+                Console.WriteLine("Invalid option.");
+            }
         }
     }
 

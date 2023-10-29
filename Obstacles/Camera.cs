@@ -2,6 +2,7 @@ using CAB201_Assignment.Obstacles.Nodes;
 using Util;
 using System.Data;
 using System.Diagnostics.Metrics;
+using System.Drawing;
 
 namespace Obstacles;
 public class Camera : Obstacle 
@@ -31,12 +32,24 @@ public class Camera : Obstacle
 
     public override bool HasVision(Coordinate coordinate)
     {
-        double opposite = GetRange(coordinate.X, Origin.X);
-        double adjacent = GetRange(coordinate.Y, Origin.Y);
+        double opposite;
+        double adjacent;
+        if (Direction == 'n' || Direction == 's')
+        {
+            opposite = GetRange(coordinate.X, Origin.X);
+            adjacent = GetRange(coordinate.Y, Origin.Y);
+        }
+        else
+        {
+            opposite = GetRange(coordinate.Y, Origin.Y);
+            adjacent = GetRange(coordinate.X, Origin.X);
+        }
 
-        double angle = Math.Atan(opposite / adjacent) * (180 / Math.PI);
 
-        bool withinVision = angle <= 45 && angle >= -45;
+        double radians = double.IsNaN(Math.Atan(opposite / adjacent)) ? 0 : Math.Atan(opposite / adjacent);
+        double degrees = radians * (180 / Math.PI);
+
+        bool withinVision = degrees <= 45 && degrees >= -45;
         bool validOrientation = CheckOrientation(coordinate);
 
         return withinVision && validOrientation;
@@ -44,9 +57,9 @@ public class Camera : Obstacle
 
     private bool CheckOrientation(Coordinate coordinate)
     {
-        if ((Direction == 'n' && Origin.Y <= coordinate.Y) ||
+        if ((Direction == 'n' && Origin.Y >= coordinate.Y) ||
             (Direction == 'e' && Origin.X <= coordinate.X) ||
-            (Direction == 's' && Origin.Y >= coordinate.Y) ||
+            (Direction == 's' && Origin.Y <= coordinate.Y) ||
             (Direction == 'w' && Origin.X >= coordinate.X))
         {
             return true;
@@ -74,8 +87,6 @@ public class Camera : Obstacle
     public override List<Node> GetNodes(Bounds bounds)
     {
         // TODO: this is not the most effective way of getting the nodes that you need to build the map.
-
-
         List<Node> nodes = new List<Node>();
         for (int X = bounds.TopLeftCoordinate.X; X >= bounds.TopLeftCoordinate.X && X <= bounds.BottomRightCoordinate.X; X++)
         {
